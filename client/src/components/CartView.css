@@ -1,0 +1,25 @@
+.ui-sticky {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+.img {
+  position: relative;
+  display: inline-block;
+  margin: 3px;
+}
+
+.delete-button {
+  padding-top: 3px;
+  padding-right: 3px;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+.icon-button-cart {
+  background-color: Transparent;
+  border: none;
+  cursor: pointer;
+}

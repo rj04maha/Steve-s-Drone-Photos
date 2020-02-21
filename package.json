@@ -8,12 +8,19 @@
     "npm": "5.0.3"
   },
   "scripts": {
-    "start": "node index.js"
+    "start": "node index.js",
+    "server": "nodemon index.js",
+    "client": "npm run start --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "concurrently": "^5.1.0",
     "express": "^4.17.1",
-    "mongoose": "^5.9.1"
+    "googleapis": "^47.0.0",
+    "mongoose": "^5.9.1",
+    "redux-form": "^8.3.0"
   }
 }

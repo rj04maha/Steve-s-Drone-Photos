@@ -1,14 +1,23 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const keys = require("./config/keys");
-const app = express();
 require("./models/Orders");
 
 mongoose.connect(keys.mongoURI);
 
-app.get("/", (req, res) => {
-  res.send({ hi: "thereeee" });
-});
+const app = express();
+
+require("./routes/testRoute")(app);
+
+if (process.env.NODE_ENV === "production") {
+  // Express will serve up production assets
+  app.use(express.static("client/build"));
+  // Express will serve up index.html file if it doesn't recognize route
+  const path = require("path");
+  app.get("*", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
+  });
+}
 
 const PORT = process.env.PORT || 5000;
 
