@@ -5,11 +5,11 @@ import { connect } from "react-redux";
 import { fetchPhotos } from "../actions";
 import Home from "./Home";
 import Header from "./Header";
-import AllPhotos from "./AllPhotos";
+import AllPhotos from "./DisplayPhotos/AllPhotos";
 import About from "./About";
 import Contact from "./Contact";
-import Cart from "./Cart";
-import Checkout from "./Checkout";
+import Cart from "./Checkout/Cart";
+import Checkout from "./Checkout/Checkout";
 import Footer from "./Footer";
 
 const content = {

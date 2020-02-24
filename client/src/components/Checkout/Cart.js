@@ -27,13 +27,19 @@ class Cart extends React.Component {
               ))}
             </tbody>
           </table>
-
+          <Link to="/photos">
+            <button className="ui left floated button">
+              Add more photos to cart
+            </button>
+          </Link>
           <Link to="/checkout">
-            <button className="ui right floated huge button">
+            <button className="ui right floated button">
               <i className="cart icon"></i>Checkout
             </button>
           </Link>
-          <h1>Total: $100</h1>
+          <div>
+            <h1>Total: $100</h1>
+          </div>
         </div>
       );
     } else {

@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { addToCart, removeFromCart } from "../actions";
+import { addToCart, removeFromCart } from "../../actions";
 import UnselectedStar from "./UnselectedStar";
 import SelectedStar from "./SelectedStar";
 

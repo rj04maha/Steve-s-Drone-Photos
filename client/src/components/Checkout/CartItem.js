@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { removeFromCart } from "../actions";
+import { removeFromCart } from "../../actions";
 
 const CartItem = props => {
   return (
@@ -14,15 +14,21 @@ const CartItem = props => {
         <button
           className="ui button fluid"
           style={{ marginTop: "1vw" }}
-          onClick={() => props.removeFromCart(props.photo.id)}
+          onClick={() => {
+            if (window.confirm("Are you sure you wish to delete this item?")) {
+              props.removeFromCart(props.photo.id);
+            }
+          }}
         >
           Delete<i className="right close icon"></i>
         </button>
       </td>
       <td data-label="Description">{props.photo.description}</td>
       <td data-label="Digital Copy">
-        Quantity:
-        <input type="number" name="digital_quantity" min="0" max="100" />
+        <div className="ui checkbox">
+          <input type="checkbox" name="digital" />
+          <label>$5.00</label>
+        </div>
       </td>
       <td data-label="Printed Copy">
         <table className="ui very basic striped table">

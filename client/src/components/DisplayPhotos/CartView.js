@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import { removeFromCart } from "../actions";
+import { removeFromCart } from "../../actions";
 import "./CartView.css";
 
 class CartView extends React.Component {
@@ -17,7 +17,13 @@ class CartView extends React.Component {
           <div className="">
             {
               <button
-                onClick={() => this.emptyCart()}
+                onClick={() => {
+                  if (
+                    window.confirm("Are you sure you wish to empty your cart?")
+                  ) {
+                    this.emptyCart();
+                  }
+                }}
                 className="ui right floated basic red button"
               >
                 Empty cart
