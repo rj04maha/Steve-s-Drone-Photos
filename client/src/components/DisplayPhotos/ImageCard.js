@@ -1,8 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
 import { addToCart, removeFromCart } from "../../actions";
-import UnselectedStar from "./UnselectedStar";
-import SelectedStar from "./SelectedStar";
 
 class ImageCard extends React.Component {
   constructor(props) {
@@ -37,17 +35,17 @@ class ImageCard extends React.Component {
           <div className="edit">
             {this.props.inCart ? (
               <button
-                className="icon-button-cart"
+                className="ui right labeled icon olive tiny button icon-button-cart"
                 onClick={() => this.props.removeFromCart(id)}
               >
-                <SelectedStar />
+                <i className="white big check icon link"></i>IN CART
               </button>
             ) : (
               <button
-                className="icon-button"
+                className="ui right labeled icon tiny button icon-button"
                 onClick={() => this.props.addToCart(this.props.image)}
               >
-                <UnselectedStar />
+                <i className="big plus circle icon link"></i>ADD TO CART
               </button>
             )}
           </div>

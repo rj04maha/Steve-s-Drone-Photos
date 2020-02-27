@@ -8,9 +8,10 @@ require("./models/Photos");
 mongoose.connect(keys.mongoURI);
 
 const app = express();
-app.use(bodyParser());
+app.use(bodyParser.json());
+//app.use(express.json());
+//app.use(express.urlencoded());
 
-require("./routes/testRoute")(app);
 require("./routes/photoRoutes")(app);
 require("./routes/orderRoutes")(app);
 

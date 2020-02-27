@@ -6,11 +6,12 @@ class AllPhotos extends React.Component {
   render() {
     return (
       <div className="space">
-        <CartView />
         <ImageGrid />
       </div>
     );
   }
 }
+
+//<CartView />
 
 export default AllPhotos;

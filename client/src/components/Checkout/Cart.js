@@ -1,8 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-
-//import { addToCart, removeFromCart } from "../actions";
 import CartItem from "./CartItem";
 
 class Cart extends React.Component {

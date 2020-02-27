@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import "./Header.css";
 
 const Footer = () => {
@@ -17,6 +18,9 @@ const Footer = () => {
 
             <div className="column">
               <div className="item">Email: awfjnfnmdkl@jdnvad.com</div>
+              <div>
+                <Link to="/admin">Admin Access</Link>
+              </div>
             </div>
           </div>
         </div>

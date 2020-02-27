@@ -25,13 +25,23 @@
   top: 0;
 }
 
-.icon-button {
-  background-color: Transparent;
+.edit1 {
+  padding-top: 1px;
+  padding-right: 1px;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.icon-buttonOLD {
+  background-color: red;
+  border-radius: 10px;
+  color: white;
   border: none;
   cursor: pointer;
 }
 
-.icon-button-cart {
+.icon-button-cartOLD {
   background-color: Transparent;
   border: none;
   cursor: pointer;

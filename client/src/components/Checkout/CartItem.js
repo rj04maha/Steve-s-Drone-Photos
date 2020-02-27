@@ -12,7 +12,7 @@ const CartItem = props => {
           src={props.photo.urls.regular}
         />
         <button
-          className="ui button fluid"
+          className="ui red button fluid"
           style={{ marginTop: "1vw" }}
           onClick={() => {
             if (window.confirm("Are you sure you wish to delete this item?")) {
@@ -20,7 +20,7 @@ const CartItem = props => {
             }
           }}
         >
-          Delete<i className="right close icon"></i>
+          Delete<i className="right close inverted icon"></i>
         </button>
       </td>
       <td data-label="Description">{props.photo.description}</td>

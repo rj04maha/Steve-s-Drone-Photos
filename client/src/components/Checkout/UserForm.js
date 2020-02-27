@@ -1,8 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import _ from "lodash";
+import { connect } from "react-redux";
 import { Field, reduxForm } from "redux-form";
 import renderInput from "./RenderInput";
+import { submitOrder } from "../../actions";
 
 const FIELDS = [
   { label: "First Name", name: "firstName" },
@@ -12,9 +14,10 @@ const FIELDS = [
 ];
 
 class UserForm extends React.Component {
-  onSubmit(formValues) {
-    console.log(formValues);
-  }
+  onSubmit = formValues => {
+    //console.log(formValues);
+    this.props.submitOrder(formValues);
+  };
 
   renderFields() {
     return _.map(FIELDS, ({ label, name }) => {
@@ -28,13 +31,14 @@ class UserForm extends React.Component {
     return (
       <form
         onSubmit={this.props.handleSubmit(this.onSubmit)}
+        //onSubmit={() => submitOrder(formValues, history)}
         className="ui form error"
       >
         {this.renderFields()}
 
         <label>Optional message or note</label>
         <div>
-          <Field name="notes" component="textarea" placeholder="Notes" />
+          <Field name="note" component="textarea" placeholder="Note" />
         </div>
 
         <div style={{ paddingTop: "20px" }}>
@@ -75,8 +79,13 @@ const validate = formValues => {
 
   return errors;
 };
+//function mapStateToProps({ orders }) {
+//return { orders };
+//}
 
-export default reduxForm({
+const formWrap = reduxForm({
   form: "getUserInfo",
   validate
 })(UserForm);
+
+export default connect(null, { submitOrder })(formWrap);
