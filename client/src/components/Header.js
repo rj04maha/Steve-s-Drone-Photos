@@ -10,15 +10,15 @@ class Header extends React.Component {
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
           <div className="ui container">
             <button
-              class="navbar-toggler"
+              className="navbar-toggler"
               type="button"
               data-toggle="collapse"
-              data-target="#navbarTogglerDemo03"
-              aria-controls="navbarTogglerDemo03"
+              data-target="#navbarToggler"
+              aria-controls="navbarToggler"
               aria-expanded="false"
               aria-label="Toggle navigation"
             >
-              <span class="navbar-toggler-icon"></span>
+              <span className="navbar-toggler-icon"></span>
             </button>
 
             <Link className="navbar-brand" to="/">
@@ -30,10 +30,10 @@ class Header extends React.Component {
             </Link>
 
             <div
-              class="collapse navbar-collapse text-center"
-              id="navbarTogglerDemo03"
+              className="collapse navbar-collapse text-center"
+              id="navbarToggler"
             >
-              <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+              <ul className="navbar-nav mr-auto mt-2 mt-lg-0">
                 <li className="nav-item">
                   <Link to="/photos" className="nav-link">
                     PHOTOS
@@ -51,22 +51,36 @@ class Header extends React.Component {
                 </li>
               </ul>
             </div>
-            <div
-              style={{
-                display: "inline-block"
-              }}
-            >
-              <Link to="/cart">
-                SHOPPING CART{" "}
-                {this.props.cart.length > 0 ? (
-                  <div>
-                    <i className="large olive cart icon"></i>
-                    {this.props.cart.length}
-                  </div>
-                ) : (
-                  <i className="large cart icon"></i>
-                )}
-              </Link>
+
+            <div className="navbar">
+              <div className="ui compact menu">
+                <Link to="/cart" className="item">
+                  {this.props.cart.length > 0 ? (
+                    <div>
+                      <i className="icon large olive cart"></i> CHECKOUT
+                      <div className="floating ui olive label">
+                        {this.props.cart.length}
+                      </div>
+                    </div>
+                  ) : (
+                    <div>
+                      <i className="icon large cart"></i> YOUR CART IS EMPTY
+                    </div>
+                  )}
+                </Link>
+              </div>
+              {/* 
+                <div className="ui big button">
+                  CART
+                  {this.props.cart.length > 0 ? (
+                    <div>
+                      <i className="olive cart icon"></i>
+                      <div className="floating ui red label"></div>
+                    </div>
+                  ) : (
+                    <i className="grey cart icon"></i>
+                  )}
+                </div> */}
             </div>
           </div>
         </nav>

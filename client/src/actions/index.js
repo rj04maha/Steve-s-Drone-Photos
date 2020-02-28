@@ -36,7 +36,22 @@ export const removeFromCart = photoId => {
   };
 };
 
-export const updateCartQuantity = (photoId, quantity) => {
+export const selectPhoto = photo => {
+  return {
+    type: "SELECT_PHOTO",
+    payload: {
+      photo
+    }
+  };
+};
+
+export const unselectPhoto = () => {
+  return {
+    type: "UNSELECT_PHOTO"
+  };
+};
+
+/* export const updateCartQuantity = (photoId, quantity) => {
   return {
     type: "UPDATE_CART_QUANTITY",
     payload: {
@@ -44,7 +59,7 @@ export const updateCartQuantity = (photoId, quantity) => {
       quantity: quantity
     }
   };
-};
+}; */
 // Create a new order
 export const submitOrder = values => async dispatch => {
   const res = await axios.post("/api/orders", values);

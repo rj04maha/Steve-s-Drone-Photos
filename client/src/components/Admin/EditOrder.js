@@ -1,8 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import { fetchOrder, updateOrder } from "../../actions";
-
+import { fetchOrder } from "../../actions";
+//updateOrder
 class EditOrder extends React.Component {
   componentDidMount() {
     this.props.fetchOrder(this.props.match.params.id);
