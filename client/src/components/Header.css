@@ -1,14 +1,25 @@
-.segment {
+@media only screen and (max-width: 655px) {
+  .logo {
+    width: 100%;
+    height: auto;
+    float: right;
+  }
+  .checkout_button {
+    margin: 0 auto;
+  }
+}
+
+.segmentOLD {
   border-radius: 0 !important;
   margin: 20px;
 }
 
-.logo {
+.logoOLD {
   width: 100%;
   height: auto;
 }
 
-.space {
+.spaceOLD {
   margin: 30px !important;
 }
 

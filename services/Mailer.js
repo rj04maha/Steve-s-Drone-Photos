@@ -1,30 +1,48 @@
 const nodemailer = require("nodemailer");
+const orderTemplate = require("../services/emailTemplates/newOrder");
+const keys = require("../config/keys");
 
 class Mailer extends Object {
-  constructor({ subject, email }, content) {
+  constructor({ firstName, lastName, email }) {
     super();
 
-    var transport = nodemailer.createTransport({
-      host: "smtp.mailtrap.io",
-      port: 2525,
+    var transporter = nodemailer.createTransport({
+      host: "smtp.gmail.com",
+      port: 465,
+      secure: true,
       auth: {
-        user: "43ea8e1951df2e",
-        pass: "5e4879865c3b25"
+        user: keys.googleUserName,
+        pass: keys.googlePass
       }
     });
+
     const message = {
-      from: "orders@stevesdronepics.com",
+      from: "stevebaloghdronephotos@gmail.com",
       to: email,
-      subject: subject,
-      html: content
+      bcc: "stevebaloghdronephotos@gmail.com",
+      subject: `New order placed by ${firstName} ${lastName}`,
+      html: orderTemplate(order)
     };
-    transport.sendMail(html, function(err, info) {
+
+    async function send() {
+      transporter.sendMail(message, function(err, info) {
+        if (err) {
+          res.send(422).send(err);
+          console.log(err);
+        } else {
+          console.log(info);
+        }
+      });
+    }
+
+    /*     transporter.sendMail(message, function(err, info) {
       if (err) {
+        res.send(422).send(err);
         console.log(err);
       } else {
         console.log(info);
       }
-    });
+    }); */
   }
 }
 

@@ -1,4 +1,4 @@
-import React from "react";
+/* import React from "react";
 import { Link } from "react-router-dom";
 
 const OrderCard = props => {
@@ -87,3 +87,4 @@ const OrderCard = props => {
 };
 
 export default OrderCard;
+ */

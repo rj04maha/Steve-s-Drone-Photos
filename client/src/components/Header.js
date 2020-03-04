@@ -6,70 +6,78 @@ import "./Header.css";
 class Header extends React.Component {
   render() {
     return (
-      <div className="ui-sticky">
-        <nav className="navbar navbar-expand-lg navbar-light bg-light">
-          <div className="ui container">
-            <button
-              className="navbar-toggler"
-              type="button"
-              data-toggle="collapse"
-              data-target="#navbarToggler"
-              aria-controls="navbarToggler"
-              aria-expanded="false"
-              aria-label="Toggle navigation"
-            >
-              <span className="navbar-toggler-icon"></span>
-            </button>
+      <nav
+        style={{
+          position: "sticky",
+          top: "0",
+          zIndex: "999"
+        }}
+        className="navbar navbar-expand-lg navbar-light bg-light"
+      >
+        <div className="ui container">
+          <button
+            className="navbar-toggler"
+            type="button"
+            data-toggle="collapse"
+            data-target="#navbarToggler"
+            aria-controls="navbarToggler"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span className="navbar-toggler-icon"></span>
+          </button>
 
-            <Link className="navbar-brand" to="/">
+          <Link className="navbar-brand" to="/">
+            <div className="logo">
               <img
                 className="ui medium image"
                 src="/images/logo.png"
                 alt="Drone Photography by Steve Balogh"
               ></img>
-            </Link>
-
-            <div
-              className="collapse navbar-collapse text-center"
-              id="navbarToggler"
-            >
-              <ul className="navbar-nav mr-auto mt-2 mt-lg-0">
-                <li className="nav-item">
-                  <Link to="/photos" className="nav-link">
-                    PHOTOS
-                  </Link>
-                </li>
-                <li className="nav-item">
-                  <Link to="/about" className="nav-link">
-                    ABOUT
-                  </Link>
-                </li>
-                <li className="nav-item">
-                  <Link to="/contact" className="nav-link">
-                    CONTACT
-                  </Link>
-                </li>
-              </ul>
             </div>
+          </Link>
 
-            <div className="navbar">
-              <div className="ui compact menu">
-                <Link to="/cart" className="item">
-                  {this.props.cart.length > 0 ? (
-                    <div>
-                      <i className="icon large olive cart"></i> CHECKOUT
-                      <div className="floating ui olive label">
-                        {this.props.cart.length}
-                      </div>
-                    </div>
-                  ) : (
-                    <div>
-                      <i className="icon large cart"></i> YOUR CART IS EMPTY
-                    </div>
-                  )}
+          <div
+            className="collapse navbar-collapse text-center"
+            id="navbarToggler"
+          >
+            <ul className="navbar-nav mr-auto mt-2 mt-lg-0">
+              <li className="nav-item">
+                <Link to="/photos" className="nav-link">
+                  PHOTOS
                 </Link>
-              </div>
-              {/* 
+              </li>
+              <li className="nav-item">
+                <Link to="/about" className="nav-link">
+                  ABOUT
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link to="/contact" className="nav-link">
+                  CONTACT
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          <div className="navbar checkout_button">
+            <div className="ui compact menu">
+              <Link to="/cart" className="item">
+                {this.props.cart.length > 0 ? (
+                  <div>
+                    <i className="icon large olive cart"></i> CHECKOUT
+                    <div className="floating ui olive label">
+                      {this.props.cart.length}
+                    </div>
+                  </div>
+                ) : (
+                  <div>
+                    <i className="icon large cart"></i> YOUR CART IS EMPTY
+                  </div>
+                )}
+              </Link>
+            </div>
+            {/* 
                 <div className="ui big button">
                   CART
                   {this.props.cart.length > 0 ? (
@@ -81,10 +89,9 @@ class Header extends React.Component {
                     <i className="grey cart icon"></i>
                   )}
                 </div> */}
-            </div>
           </div>
-        </nav>
-      </div>
+        </div>
+      </nav>
     );
   }
 }

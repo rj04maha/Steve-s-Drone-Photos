@@ -10,10 +10,10 @@ class PhotoDetail extends React.Component {
     return (
       <div className="ui container">
         <button
-          class="ui labeled icon button"
+          className="ui labeled icon button"
           onClick={() => this.props.unselectPhoto()}
         >
-          <i class="left arrow icon"></i>
+          <i className="left arrow icon"></i>
           BACK
         </button>
         {this.props.cart.filter(
@@ -39,6 +39,7 @@ class PhotoDetail extends React.Component {
         <img
           className="ui centered large image"
           src={this.props.selectPhoto.photo.urls.regular}
+          alt={this.props.selectPhoto.photo.description}
         ></img>
         <p style={{ textAlign: "center" }}>
           This will be a description of the pic and tags

@@ -12,7 +12,7 @@ import Cart from "./Checkout/Cart";
 import Checkout from "./Checkout/Checkout";
 import Footer from "./Footer";
 import AdminDashboard from "./Admin/AdminDashboard";
-import editOrder from "./Admin/EditOrder";
+import ViewOrder from "./Admin/ViewOrder";
 
 const content = {
   paddingBottom: "6rem"
@@ -34,7 +34,7 @@ class App extends React.Component {
           <Route path="/cart" exact component={Cart} />
           <Route path="/checkout" exact component={Checkout} />
           <Route path="/admin" exact component={AdminDashboard} />
-          <Route path="/orders/edit/:id" exact component={editOrder} />
+          <Route path="/orders/view/:id" exact component={ViewOrder} />
           <Footer />
         </Router>
       </div>

@@ -38,7 +38,7 @@ class UserForm extends React.Component {
 
         <label>Optional message or note</label>
         <div>
-          <Field name="note" component="textarea" placeholder="Note" />
+          <Field name="customerNote" component="textarea" placeholder="Note" />
         </div>
 
         <div style={{ paddingTop: "20px" }}>
