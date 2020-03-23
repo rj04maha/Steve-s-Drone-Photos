@@ -1,4 +1,4 @@
-import React from "react";
+/* import React from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { removeFromCart } from "../../actions";
@@ -90,3 +90,4 @@ const mapDispatchToProps = dispatch => {
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(CartView);
+ */

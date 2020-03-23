@@ -1,24 +1,20 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
-//require("express-async-errors");
-//const winston = require("winston");
-//const error = require("./middlewares/error");
+const cookieParser = require("cookie-parser");
 const keys = require("./config/keys");
 require("./models/Orders");
 require("./models/Photos");
 
-//winston.add(winston.transports.File, { filename: "logfile.log" });
-
 mongoose.connect(keys.mongoURI);
 
 const app = express();
-app.use(bodyParser.json());
-//app.use(express.json());
-//app.use(express.urlencoded());
+app.use(bodyParser.json()); // might be causing a problem
+app.use(cookieParser());
 
 require("./routes/photos")(app);
 require("./routes/orders")(app);
+require("./routes/adminLogin")(app);
 
 if (process.env.NODE_ENV === "production") {
   // Express will serve up production assets

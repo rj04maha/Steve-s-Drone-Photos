@@ -6,7 +6,6 @@ const OrderTable = props => {
     return props.arr.reverse().map(order => {
       return (
         <tr key={order._id}>
-          {console.log(order._id)}
           <td data-label="Name">
             {order.firstName} {order.lastName}
           </td>

@@ -63,11 +63,14 @@ class Header extends React.Component {
           <div className="navbar checkout_button">
             <div className="ui compact menu">
               <Link to="/cart" className="item">
-                {this.props.cart.length > 0 ? (
+                {Object.keys(this.props.cart).length > 0 ? (
                   <div>
                     <i className="icon large olive cart"></i> CHECKOUT
                     <div className="floating ui olive label">
-                      {this.props.cart.length}
+                      {Object.keys(this.props.cart).length}
+                      {
+                        //this.props.cart.length}
+                      }
                     </div>
                   </div>
                 ) : (

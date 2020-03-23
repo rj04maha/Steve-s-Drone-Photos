@@ -2,9 +2,10 @@ const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
 const photoSchema = new Schema({
-  id: Number,
-  source: String,
+  name: { type: String, required: true },
   tags: [String],
+  description: { type: String, required: true },
+  source: { type: String, required: true },
   dateAdded: Date
 });
 

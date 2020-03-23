@@ -1,6 +1,14 @@
 import React from "react";
 import { connect } from "react-redux";
-import { addToCart, removeFromCart, selectPhoto } from "../../actions";
+import {
+  Image,
+  Video,
+  Transformation,
+  CloudinaryContext
+} from "cloudinary-react";
+
+import { selectPhoto } from "../../actions";
+import CheckInCartButton from "./CheckInCartButton";
 
 class ImageCard extends React.Component {
   constructor(props) {
@@ -10,7 +18,6 @@ class ImageCard extends React.Component {
       isHovering: false
     };
     this.imageRef = React.createRef();
-    //this.handleMouseHover = this.handleMouseHover.bind(this);
   }
 
   componentDidMount() {
@@ -24,34 +31,20 @@ class ImageCard extends React.Component {
   };
 
   render() {
-    const { description, urls, id } = this.props.image;
+    const { name, source, _id } = this.props.image;
     return (
       <div style={{ gridRowEnd: `span ${this.state.spans}` }}>
         <div className="card">
           <img
-            alt={description}
-            src={urls.regular}
+            alt={name}
+            src={source}
             ref={this.imageRef}
-            key={id}
+            key={_id}
             onClick={() => this.props.selectPhoto(this.props.image)}
             style={{ cursor: "pointer" }}
           />
           <div className="edit">
-            {this.props.inCart ? (
-              <button
-                className="ui right labeled icon olive tiny button icon-button-cart"
-                onClick={() => this.props.removeFromCart(id)}
-              >
-                <i className="white big check icon link"></i>IN CART
-              </button>
-            ) : (
-              <button
-                className="ui right labeled icon tiny button icon-button"
-                onClick={() => this.props.addToCart(this.props.image)}
-              >
-                <i className="big plus circle icon link"></i>ADD TO CART
-              </button>
-            )}
+            <CheckInCartButton photo={this.props.image}></CheckInCartButton>
           </div>
         </div>
       </div>
@@ -60,17 +53,11 @@ class ImageCard extends React.Component {
 }
 
 const mapStateToProps = state => {
-  return { cart: state.cart, selectPhoto: state.selectPhoto };
+  return { selectPhoto: state.selectPhoto };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    addToCart: photo => {
-      dispatch(addToCart(photo));
-    },
-    removeFromCart: photoId => {
-      dispatch(removeFromCart(photoId));
-    },
     selectPhoto: photo => {
       dispatch(selectPhoto(photo));
     }

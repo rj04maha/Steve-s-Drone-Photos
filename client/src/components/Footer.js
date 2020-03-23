@@ -5,6 +5,7 @@ import "./Header.css";
 const Footer = () => {
   return (
     <div className="foot">
+      <div style={{ paddingTop: "50px" }}></div>
       <div className="ui inverted segment">
         <div className="ui container">
           <div className="ui two column stackable grid">

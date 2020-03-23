@@ -1,49 +1,35 @@
 import React from "react";
 import { connect } from "react-redux";
-import { addToCart, removeFromCart, unselectPhoto } from "../../actions";
+import { unselectPhoto } from "../../actions";
+import CheckInCartButton from "./CheckInCartButton";
 
 class PhotoDetail extends React.Component {
   componentWillUnmount() {
     this.props.unselectPhoto();
   }
   render() {
+    const { photo } = this.props.selectPhoto;
     return (
       <div className="ui container">
         <button
-          className="ui labeled icon button"
+          className="ui labeled icon tiny button"
           onClick={() => this.props.unselectPhoto()}
         >
           <i className="left arrow icon"></i>
-          BACK
+          ALL PHOTOS
         </button>
-        {this.props.cart.filter(
-          e => e.photo.id === this.props.selectPhoto.photo.id
-        ).length > 0 ? (
-          <button
-            className="ui right floated right labeled icon olive button icon-button-cart"
-            onClick={() =>
-              this.props.removeFromCart(this.props.selectPhoto.photo.id)
-            }
-          >
-            <i className="white big check icon link"></i>IN CART
-          </button>
-        ) : (
-          <button
-            className="ui right floated right labeled icon button icon-button"
-            onClick={() => this.props.addToCart(this.props.selectPhoto.photo)}
-          >
-            <i className="big plus circle icon link"></i>ADD TO CART
-          </button>
-        )}
-
+        <div style={{ float: "right" }}>
+          <CheckInCartButton photo={photo}></CheckInCartButton>
+        </div>
         <img
           className="ui centered large image"
-          src={this.props.selectPhoto.photo.urls.regular}
-          alt={this.props.selectPhoto.photo.description}
+          src={photo.source}
+          alt={photo.name}
         ></img>
-        <p style={{ textAlign: "center" }}>
-          This will be a description of the pic and tags
-        </p>
+        <div style={{ textAlign: "center" }}>
+          <h3>{photo.name}</h3>
+          <p>Tags: {photo.tags}</p>
+        </div>
       </div>
     );
   }
@@ -51,12 +37,6 @@ class PhotoDetail extends React.Component {
 
 const mapDispatchToProps = dispatch => {
   return {
-    addToCart: photo => {
-      dispatch(addToCart(photo));
-    },
-    removeFromCart: photoId => {
-      dispatch(removeFromCart(photoId));
-    },
     unselectPhoto: () => {
       dispatch(unselectPhoto());
     }
@@ -66,8 +46,7 @@ const mapDispatchToProps = dispatch => {
 const mapStateToProps = state => {
   return {
     selectPhoto: state.selectPhoto,
-    unselectPhoto: state.unselectPhoto,
-    cart: state.cart
+    unselectPhoto: state.unselectPhoto
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(PhotoDetail);

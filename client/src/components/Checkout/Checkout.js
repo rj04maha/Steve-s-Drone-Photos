@@ -1,4 +1,4 @@
-import React from "react";
+/* import React from "react";
 import UserForm from "./UserForm";
 
 const Checkout = () => {
@@ -34,3 +34,4 @@ const Checkout = () => {
 };
 
 export default Checkout;
+ */

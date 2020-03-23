@@ -6,9 +6,7 @@ import "./ImageGrid.css";
 class ImageGrid extends React.Component {
   renderList() {
     return this.props.photos.map(image => {
-      let checkIfInCart =
-        this.props.cart.filter(e => e.photo.id === image.id).length > 0;
-      return <ImageCard key={image.id} image={image} inCart={checkIfInCart} />;
+      return <ImageCard key={image._id} image={image} />;
     });
   }
 
@@ -34,7 +32,7 @@ class ImageGrid extends React.Component {
 }
 
 const mapStateToProps = state => {
-  return { photos: state.photos, cart: state.cart };
+  return { photos: Object.values(state.photos), cart: state.cart };
 };
 
 export default connect(mapStateToProps)(ImageGrid);

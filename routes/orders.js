@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const Order = mongoose.model("orders");
-const Mailer = require("../services/Mailer");
+const SendEmail = require("../services/SendEmail");
+const checkAdmin = require("../middlewares/checkAdmin");
 
 module.exports = app => {
   // Create order
@@ -24,17 +25,16 @@ module.exports = app => {
       customerNote
     });
 
-    //const mailer = new Mailer(order);
-
     try {
       const newOrder = await order.save();
-      //await mailer.send();
+      SendEmail(newOrder);
       res.send(newOrder);
     } catch (err) {
       res.send(err.message);
     }
   });
 
+  //app.get("/api/orders", checkAdmin, async (req, res) => { //PUT ME BACK IN LATER
   app.get("/api/orders", async (req, res) => {
     try {
       const allOrders = await Order.find();
@@ -55,12 +55,18 @@ module.exports = app => {
   });
 
   // Update order by id
+  //app.put("/api/orders/:id", checkAdmin, async (req, res) => {
   app.put("/api/orders/:id", async (req, res) => {
-    const { fullfilled, paid } = req.body;
-    res.send(req.params.id);
-    /* 
+    var { fullfilled, paid } = req.body;
+
     try {
-      await Order.findById(req.params.id).exec();
+      const foundOrder = await Order.findById(req.params.id).exec();
+      if (!fullfilled) {
+        fullfilled = foundOrder.fullfilled;
+      }
+      if (!paid) {
+        paid = foundOrder.paid;
+      }
 
       try {
         await Order.updateOne(
@@ -73,35 +79,17 @@ module.exports = app => {
       }
     } catch (err) {
       res.status(422).send("Order cannot be found");
+      //res.send(err.message);
       return;
-    } */
-  });
-
-  app.delete("/api/orders/:id", async (req, res) => {
-    const { orderId, fullfilled, paid } = req.body;
-
-    //delete order
-  });
-
-  /* app.get("/api/order_first", async (req, res) => {
-    try {
-      const orderMatch = await Order.find({
-        firstName: req.query.first
-      }).collation({ locale: "en", strength: 2 });
-      res.send(orderMatch);
-    } catch (err) {
-      res.send(422).send(err);
     }
   });
 
-  app.get("/api/order_last", async (req, res) => {
+  /*   app.delete("/api/orders/:id", checkAdmin, async (req, res) => {
     try {
-      const orderMatch = await Order.find({
-        lastName: req.query.last
-      }).collation({ locale: "en", strength: 2 });
-      res.send(orderMatch);
+      await Order.findOneAndDelete({ _id: req.params.id });
+      res.send("Order deleted");
     } catch (err) {
-      res.send(422).send(err);
+      res.status(422).send("There was a problem deleting this order.");
     }
   }); */
 };
