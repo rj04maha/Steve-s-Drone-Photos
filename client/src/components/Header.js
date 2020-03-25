@@ -10,6 +10,7 @@ const Header = () => {
 
   return (
     <Navbar collapseOnSelect expand="lg" bg="light" variant="light">
+      <Navbar.Toggle aria-controls="responsive-navbar-nav" />
       <Navbar.Brand>
         <Link className="navbar-brand" to="/">
           <img
@@ -19,7 +20,7 @@ const Header = () => {
           />
         </Link>
       </Navbar.Brand>
-      <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+
       <Navbar.Collapse id="responsive-navbar-nav">
         <Nav className="mr-auto">
           <Nav.Link>
@@ -38,29 +39,29 @@ const Header = () => {
             </Link>
           </Nav.Link>
         </Nav>
-        <Nav>
-          <Nav.Link>
-            <div className="navbar checkout_button">
-              <div className="ui compact menu">
-                <Link to="/cart" className="item">
-                  {Object.keys(cart).length > 0 ? (
-                    <div>
-                      <i className="icon large olive cart"></i> CHECKOUT
-                      <div className="floating ui olive label">
-                        {Object.keys(cart).length}
-                      </div>
-                    </div>
-                  ) : (
-                    <div>
-                      <i className="icon large cart"></i> YOUR CART IS EMPTY
-                    </div>
-                  )}
-                </Link>
-              </div>
-            </div>
-          </Nav.Link>
-        </Nav>
       </Navbar.Collapse>
+      <Nav>
+        <Nav.Link>
+          <div className="navbar checkout_button">
+            <div className="ui compact menu">
+              <Link to="/cart" className="item">
+                {Object.keys(cart).length > 0 ? (
+                  <div>
+                    <i className="icon large olive cart"></i>
+                    <div className="floating ui olive label">
+                      {Object.keys(cart).length}
+                    </div>
+                  </div>
+                ) : (
+                  <div>
+                    <i className="icon large cart"></i>
+                  </div>
+                )}
+              </Link>
+            </div>
+          </div>
+        </Nav.Link>
+      </Nav>
     </Navbar>
   );
 };
