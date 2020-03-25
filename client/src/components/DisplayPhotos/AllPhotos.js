@@ -1,4 +1,4 @@
-import React from "react";
+/* import React from "react";
 import { connect } from "react-redux";
 import ImageGrid from "./ImageGrid";
 import PhotoDetail from "./PhotoDetail";
@@ -32,3 +32,4 @@ const mapStateToProps = state => {
   return { selectPhoto: state.selectPhoto, unselectPhoto: state.unselectPhoto };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(AllPhotos);
+ */

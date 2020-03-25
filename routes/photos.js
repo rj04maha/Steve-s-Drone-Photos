@@ -29,12 +29,15 @@ const upload = multer({
 module.exports = app => {
   app.post("/api/photos", upload, async (req, res) => {
     try {
-      const result = await cloudinary.uploader.upload(req.file.path);
-      source = result.url;
-
       name = req.body["name"];
       tags = req.body["tags"];
       description = req.body["description"];
+
+      const result = await cloudinary.uploader.upload(req.file.path, {
+        public_id: name,
+        tags: tags
+      });
+      source = result.public_id;
 
       const photo = new Photo({
         name,
@@ -47,17 +50,9 @@ module.exports = app => {
       const newPhoto = await photo.save();
       res.send(newPhoto);
     } catch (err) {
-      res.send(err.message);
+      res.send(`There was a problem uploading this photo: ${err.message}`);
     }
   });
-
-  /* 
-    try {
-      const newPhoto = await photo.save();
-      res.send(newPhoto);
-    } catch (err) {
-      res.send(err.message);
-    } */
 
   app.get("/api/photos", async (req, res) => {
     try {
@@ -79,6 +74,7 @@ module.exports = app => {
 
   app.delete("/api/photos/:id", checkAdmin, async (req, res) => {
     try {
+      //cloudinary.v2.uploader.destroy(public_id);
       await Photo.findOneAndDelete({ _id: req.params.id });
       res.send("Photo deleted");
     } catch (err) {

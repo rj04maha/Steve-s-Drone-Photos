@@ -1,0 +1,39 @@
+@media only screen and (max-width: 655px) {
+  .logo {
+    width: 100%;
+    height: auto;
+    float: right;
+  }
+  .checkout_button {
+    margin: 0 auto;
+  }
+}
+
+.segmentOLD {
+  border-radius: 0 !important;
+  margin: 20px;
+}
+
+.logoOLD {
+  width: 100%;
+  height: auto;
+}
+
+.spaceOLD {
+  margin: 30px !important;
+}
+
+/* Footer */
+
+.foot {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 6rem;
+  text-align: center;
+}
+
+.center {
+  display: flex;
+  justify-content: center;
+}

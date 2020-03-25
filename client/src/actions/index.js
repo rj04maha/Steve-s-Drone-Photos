@@ -20,7 +20,7 @@ export const fetchPhotos = () => async dispatch => {
 
 export const fetchPhoto = id => async dispatch => {
   const res = await axios.get(`/api/photos/${id}`);
-  dispatch({ type: "FETCH_PHOTOS", payload: res.data });
+  dispatch({ type: "FETCH_PHOTO", payload: res.data });
 };
 
 export const updatePhoto = (id, values) => async dispatch => {

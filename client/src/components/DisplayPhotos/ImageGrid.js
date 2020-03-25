@@ -1,7 +1,6 @@
-import React from "react";
+/* import React from "react";
 import { connect } from "react-redux";
 import ImageCard from "./ImageCard";
-import "./ImageGrid.css";
 
 class ImageGrid extends React.Component {
   renderList() {
@@ -36,3 +35,4 @@ const mapStateToProps = state => {
 };
 
 export default connect(mapStateToProps)(ImageGrid);
+ */
