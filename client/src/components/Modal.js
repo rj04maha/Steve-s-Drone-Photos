@@ -1,16 +1,23 @@
-import React from "react";
+import React, { useEffect } from "react";
 import ReactDOM from "react-dom";
 
 const Modal = props => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   return ReactDOM.createPortal(
-    <div onClick={props.onDismiss} className="ui dimmer modals visible active">
+    <div onClick={props.onDismiss} className="ui active dimmer">
       <div
         onClick={e => e.stopPropagation()}
-        className="ui standard modal visible active"
+        className="ui active centered modal"
+        style={{ height: "35%" }}
       >
-        <div className="header">{props.title}</div>
-        <div className="content">{props.content}</div>
-        <div className="actions">{props.actions}</div>
+        <div className="ui header">{props.title}</div>
+        <div className="ui image content">
+          <span style={{ color: "black" }}>{props.content}</span>
+          <div>{props.image}</div>
+        </div>
+        <div className="ui actions">{props.actions}</div>
       </div>
     </div>,
     document.querySelector("#modal")

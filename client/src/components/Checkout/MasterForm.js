@@ -12,13 +12,13 @@ class MasterForm extends Component {
     this.nextPage = this.nextPage.bind(this);
     this.previousPage = this.previousPage.bind(this);
     this.state = {
-      page: 1
+      page: 1,
     };
   }
 
-  onSubmit = formValues => {
-    //console.log(formValues);
-    this.props.submitOrder(formValues);
+  onSubmit = (formValues) => {
+    console.log(formValues);
+    //this.props.submitOrder(formValues);
   };
 
   nextPage() {

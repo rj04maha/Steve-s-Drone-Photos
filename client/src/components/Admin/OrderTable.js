@@ -46,7 +46,7 @@ const OrderTable = props => {
   return (
     <div>
       <div className="ui segment">
-        <h1>{props.title}</h1>
+        <h3>{props.title}</h3>
         {props.alert}
 
         {props.arr.length > 0 ? renderTableHeader() : "No orders to show"}

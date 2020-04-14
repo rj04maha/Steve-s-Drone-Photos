@@ -6,20 +6,12 @@ const checkAdmin = require("../middlewares/checkAdmin");
 module.exports = app => {
   // Create order
   app.post("/api/orders", async (req, res) => {
-    const {
-      firstName,
-      lastName,
-      email,
-      phone,
-      photos,
-      customerNote
-    } = req.body;
+    const { firstName, lastName, email, photos, customerNote } = req.body;
 
     const order = new Order({
       firstName,
       lastName,
       email,
-      phone,
       datePlaced: Date.now(),
       photos,
       customerNote

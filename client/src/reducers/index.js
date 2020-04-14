@@ -3,14 +3,16 @@ import { reducer as formReducer } from "redux-form";
 import photoReducers from "./photosReducers";
 import cartReducer from "./cartReducer";
 import ordersReducer from "./ordersReducer";
-import selectPhotoReducer from "./selectPhotoReducer";
 import adminLogin from "./adminLoginReducer";
+import search from "./searchReducer";
+import searchByDate from "./searchByDateReducer";
 
 export default combineReducers({
   photos: photoReducers,
   cart: cartReducer,
   form: formReducer,
   orders: ordersReducer,
-  selectPhoto: selectPhotoReducer,
-  adminLogin: adminLogin
+  adminLogin: adminLogin,
+  search: search,
+  searchByDate: searchByDate,
 });

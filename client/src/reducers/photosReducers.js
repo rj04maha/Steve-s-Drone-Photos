@@ -8,8 +8,8 @@ export default (state = {}, action) => {
     //return { ...state, [action.payload._id]: action.payload };
     case "FETCH_PHOTO":
       return { ...state, [action.payload._id]: action.payload };
-    case "UPDATE_PHOTO":
-      return { ...state, [action.payload._id]: action.payload };
+    //case "UPDATE_PHOTO":
+    //return { ...state, [action.payload._id]: action.payload };
     case "DELETE_PHOTO":
       return _.omit(state, action.payload);
     default:

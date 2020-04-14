@@ -4,11 +4,11 @@ import { Link } from "react-router-dom";
 import CheckInCartButton from "./CheckInCartButton";
 import { fetchPhoto } from "../../actions";
 
-const PhotoDetail = props => {
+const PhotoDetail = (props) => {
   const [isLoading, setIsLoading] = useState(true);
   const dispatch = useDispatch();
   const photoId = props.match.params.id;
-  const photo = useSelector(state => state.photos[photoId], shallowEqual);
+  const photo = useSelector((state) => state.photos[photoId], shallowEqual);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -19,7 +19,7 @@ const PhotoDetail = props => {
   }, [photoId, dispatch]);
 
   function renderTags(tags) {
-    return tags.map(tag => {
+    return tags.map((tag) => {
       return (
         <span className="ui tag label" key={tag}>
           {tag}
@@ -29,26 +29,26 @@ const PhotoDetail = props => {
   }
 
   if (!isLoading && photo) {
-    const { name, source, tags, description } = photo;
+    const { name, source, tags, location, dateTaken } = photo;
     return (
-      <div className="ui container">
+      <div className="ui container" style={{ paddingTop: "1em" }}>
         <div className="ui stackable two column grid">
           <div className="column ten wide">
             <img className="ui centered large image" src={source} alt={name} />
           </div>
           <div className="column six wide">
-            hi
-            {/* <h1>{name}</h1>
-            <p>{description}</p>
+            <h1>{name}</h1>
+            <p>{location}</p>
+            <p>{dateTaken}</p>
             <p>{renderTags(tags)}</p>
             <CheckInCartButton photo={photo}></CheckInCartButton>
             <br />
-            <br />
-            <br />
-            <Link to="/photos">
-              <i className="left arrow icon"></i>
-              Back to all photos
-            </Link> */}
+            <div>
+              <Link to="/photos">
+                <i className="left arrow icon"></i>
+                Back to all photos
+              </Link>
+            </div>
           </div>
         </div>
       </div>
@@ -81,55 +81,3 @@ const PhotoDetail = props => {
 };
 
 export default PhotoDetail;
-
-/*import React from "react";
-import { connect } from "react-redux";
-import { Link } from "react-router-dom";
-import CheckInCartButton from "./CheckInCartButton";
-import { fetchPhoto } from "../../actions";
-
-class PhotoDetail extends React.Component {
-  componentDidMount() {
-    this.props.fetchPhoto(this.props.match.params.id);
-  }
-  render() {
-    //const { photo } = this.props.selectPhoto;
-    const photo = null;
-
-    return (
-      <div className="ui container">
-        <h1>Viewing photo with id #{this.props.match.params.id}</h1>
-        {<Link to="/photos">
-          <button className="ui labeled icon tiny button">
-            <i className="left arrow icon"></i>
-            ALL PHOTOS
-          </button>
-        </Link>
-        <div style={{ float: "right" }}>
-          <CheckInCartButton photo={photo}></CheckInCartButton>
-        </div>
-        <img
-          className="ui centered large image"
-          src={photo.source}
-          alt={photo.name}
-        ></img>
-        <div style={{ textAlign: "center" }}>
-          <h3>{photo.name}</h3>
-          <p>Tags: {photo.tags}</p>
-        </div> }
-      </div>
-    );
-  }
-}
-
- const mapStateToProps = state => {
-  return {
-    fetchPhoto: state.fetchPhoto
-  };
-};
-
-function mapStateToProps(state, ownProps) {
-  return { photo: state.orders[ownProps.match.params.id] };
-} 
-
-export default connect(null, { fetchPhoto })(PhotoDetail);*/

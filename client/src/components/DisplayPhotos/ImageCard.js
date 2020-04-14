@@ -1,7 +1,4 @@
 import React from "react";
-//import { connect } from "react-redux";
-//import {Image,Video,Transformation,CloudinaryContext} from "cloudinary-react";
-//import { selectPhoto } from "../../actions";
 import CheckInCartButton from "./CheckInCartButton";
 import { Link } from "react-router-dom";
 
@@ -9,7 +6,7 @@ class ImageCard extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      spans: 0
+      spans: 0,
     };
     this.imageRef = React.createRef();
   }
@@ -18,10 +15,21 @@ class ImageCard extends React.Component {
     this.imageRef.current.addEventListener("load", this.setSpans);
   }
 
+  componentWillUnmount() {
+    this.imageRef.current.removeEventListener("load", this.setSpans);
+    //this.setState({ spans: 0 });
+    this.imageRef.current = null;
+    this.imageRef = null;
+  }
+
   setSpans = () => {
-    const height = this.imageRef.current.clientHeight;
-    const spans = Math.ceil(height / 10) + 1;
-    this.setState({ spans });
+    if (this.imageRef === null) {
+      this.setState({ spans: 0 });
+    } else {
+      const height = this.imageRef.current.clientHeight;
+      const spans = Math.ceil(height / 10) + 1;
+      this.setState({ spans });
+    }
   };
 
   render() {
@@ -45,7 +53,7 @@ class ImageCard extends React.Component {
               paddingRight: "7px",
               position: "absolute",
               right: "0",
-              top: "0"
+              top: "0",
             }}
           >
             <CheckInCartButton photo={this.props.image}></CheckInCartButton>

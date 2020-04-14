@@ -15,6 +15,9 @@ import AdminLogin from "./Admin/AdminLogin";
 import OrderView from "./Admin/OrderView";
 import MasterForm from "./Checkout/MasterForm";
 import PhotoAdd from "./Admin/PhotoAdd";
+import PhotoEdit from "./Admin/PhotoEdit";
+import PhotoDelete from "./Admin/PhotoDelete";
+import PhotoManage from "./Admin/PhotoManage";
 //import WithAuth from "./WithAuth";
 
 const content = {
@@ -37,6 +40,9 @@ class App extends React.Component {
           <Route path="/admin" exact component={AdminDashboard} />
           <Route path="/orders/view/:id" exact component={OrderView} />
           <Route path="/add-photo" exact component={PhotoAdd} />
+          <Route path="/photo/edit/:id" exact component={PhotoEdit} />
+          <Route path="/photo/delete/:id" exact component={PhotoDelete} />
+          <Route path="/manage-photos" exact component={PhotoManage} />
           {/* <Route path="/admin" exact component={WithAuth(AdminDashboard)} />
           <Route
             path="/orders/view/:id"

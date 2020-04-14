@@ -5,8 +5,8 @@ const orderSchema = new Schema({
   firstName: { type: String, required: true },
   lastName: { type: String, required: true },
   email: { type: String, required: true },
+  address: String,
   datePlaced: Date,
-  phone: String,
   fullfilled: { type: Boolean, default: false },
   photos: { type: String, required: true }, // change this to object or something else
   customerNote: String,

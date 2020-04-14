@@ -10,41 +10,43 @@ const path = require("path");
 cloudinary.config({
   cloud_name: keys.cloudinary_cloud_name,
   api_key: keys.cloudinary_api_key,
-  api_secret: keys.cloudinary_api_secret
+  api_secret: keys.cloudinary_api_secret,
 });
 
 var date = Date.now();
 
 const storage = multer.diskStorage({
   destination: "./public/uploads/",
-  filename: function(req, file, cb) {
+  filename: function (req, file, cb) {
     cb(null, `${file.originalname}-${date}${path.extname(file.originalname)}`);
-  }
+  },
 });
 
 const upload = multer({
-  storage: storage
+  storage: storage,
 }).single("image");
 
-module.exports = app => {
+module.exports = (app) => {
   app.post("/api/photos", upload, async (req, res) => {
     try {
       name = req.body["name"];
       tags = req.body["tags"];
-      description = req.body["description"];
+      location = req.body["location"];
+      dateTaken = req.body["dateTaken"];
 
       const result = await cloudinary.uploader.upload(req.file.path, {
         public_id: name,
-        tags: tags
+        tags: tags,
       });
-      source = result.public_id;
+      source = result.url;
 
       const photo = new Photo({
         name,
-        tags: tags.split(",").map(tag => tag.trim()), //: tags.split(",").map(tag => ({ tag: tag.trim() })),
-        description,
+        tags: tags.split(",").map((tag) => tag.trim()), //: tags.split(",").map(tag => ({ tag: tag.trim() })),
+        location,
         source,
-        dateAdded: Date.now()
+        dateTaken,
+        dateAdded: Date.now(),
       });
 
       const newPhoto = await photo.save();
@@ -72,13 +74,37 @@ module.exports = app => {
     }
   });
 
-  app.delete("/api/photos/:id", checkAdmin, async (req, res) => {
+  app.delete("/api/photos/:id", async (req, res) => {
     try {
-      //cloudinary.v2.uploader.destroy(public_id);
+      const photoMatch = await Photo.findById(req.params.id).exec();
+      console.log(photoMatch.name);
+      cloudinary.uploader.destroy(photoMatch.name);
       await Photo.findOneAndDelete({ _id: req.params.id });
       res.send("Photo deleted");
     } catch (err) {
       res.status(422).send("There was a problem deleting this photo.");
+    }
+  });
+
+  app.put("/api/photos/:id", async (req, res) => {
+    var { name, tags, location, dateTaken } = req.body;
+
+    try {
+      await Photo.updateOne(
+        { _id: req.params.id },
+        {
+          $set: {
+            name: name,
+            tags: tags.split(",").map((tag) => tag.trim()),
+            location: location,
+            dateTaken: dateTaken,
+          },
+        }
+      ).exec();
+      res.status(202).send("Updated successfully");
+    } catch (err) {
+      console.log(err);
+      res.status(422).send("There was a problem updating this photo");
     }
   });
 };

@@ -26,7 +26,7 @@ const rejectStyle = {
   borderColor: "#ff1744"
 };
 
-const RenderDropzoneInput = ({ input, meta, label }) => {
+const RenderDropzoneInput = ({ input, meta, label, onChangeInput }) => {
   const [files, setFile] = useState([]);
   const [err, setErr] = useState([]);
 
@@ -52,11 +52,28 @@ const RenderDropzoneInput = ({ input, meta, label }) => {
           )
         );
         input.onChange(acceptedFiles[0]);
+
+        const dt = new Date(acceptedFiles[0].lastModifiedDate);
+        var mm = dt.getMonth() + 1;
+        var dd = dt.getDate();
+        var yyyy = dt.getFullYear();
+        if (mm < 10) {
+          mm = "0" + mm;
+        }
+        if (dd < 10) {
+          dd = "0" + dd;
+        }
+        var newDate = yyyy + "-" + mm + "-" + dd;
+
+        input.onChange(
+          onChangeInput(acceptedFiles[0].name, newDate, acceptedFiles[0])
+        );
       } else {
         acceptedFiles[0] = null;
       }
     }
   });
+
   const style = useMemo(
     () => ({
       ...baseStyle,

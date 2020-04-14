@@ -6,7 +6,15 @@ const keys = require("./config/keys");
 require("./models/Orders");
 require("./models/Photos");
 
-mongoose.connect(keys.mongoURI);
+mongoose
+  .connect(keys.mongoURI)
+  .then(() => {
+    console.log("Successfully connected to the database");
+  })
+  .catch(err => {
+    console.log("Could not connect to the database. Exiting now...", err);
+    process.exit();
+  });
 
 const app = express();
 app.use(bodyParser.json()); // might be causing a problem

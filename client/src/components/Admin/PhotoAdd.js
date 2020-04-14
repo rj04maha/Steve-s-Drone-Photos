@@ -1,85 +1,67 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import { Field, reduxForm } from "redux-form";
-import _ from "lodash";
-import { addPhoto } from "../../actions";
-import RenderInput from "../Checkout/RenderInput";
+import { Field } from "redux-form";
 import RenderDropzoneInput from "./RenderDropzoneInput";
+import { addPhoto } from "../../actions";
+import PhotoForm from "./PhotoForm";
 
-const FIELDS = [
-  { label: "Name", name: "name" },
-  { label: "Tags (seperate with commas)", name: "tags" },
-  { label: "Description", name: "description" }
-];
-class AddAPhoto extends React.Component {
-  renderFields() {
-    return _.map(FIELDS, ({ label, name }) => {
-      return (
-        <Field key={name} name={name} component={RenderInput} label={label} />
-      );
-    });
-  }
+class PhotoAdd extends React.Component {
+  state = {
+    initialValueName: null,
+    initialValueDate: null,
+    initialValueImage: null
+  };
 
   onSubmit = formValues => {
     let formData = new FormData();
     formData.append("image", formValues.image, formValues.image.name);
     formData.append("name", formValues.name);
     formData.append("tags", formValues.tags);
-    formData.append("description", formValues.description);
-    //console.log(formData);
+    formData.append("location", formValues.location);
+    formData.append("dateTaken", formValues.dateTaken);
     this.props.addPhoto(formData);
-    //this.props.addPhoto(formValues);
-    //console.log(formValues);
   };
+
+  onChangeInput = (n, d, i) => {
+    this.setState({
+      initialValueName: n,
+      initialValueDate: d,
+      initialValueImage: i
+    });
+  };
+
   render() {
     return (
-      <div className="container">
-        <Link to="/admin">
-          <button className="ui button right floated">Back to dashboard</button>
+      <div className="ui container" style={{ paddingTop: "1em" }}>
+        <Link to="/manage-photos">
+          <button className="ui button right floated">
+            <i className="left arrow icon"></i>To all photos
+          </button>
         </Link>
         <h1>Add a photo</h1>
         <p>*Only one photo at a time*</p>
-
-        <form
-          className="ui form"
-          onSubmit={this.props.handleSubmit(this.onSubmit)}
-          encType="multipart/form-data"
-        >
-          <Field
-            name="image"
-            component={RenderDropzoneInput}
-            label="image"
-            type="file"
-          />
-          {this.renderFields()}
-          <button className="ui green button">Upload</button>
-        </form>
+        <PhotoForm
+          onSubmit={this.onSubmit}
+          button="Upload"
+          initialValues={{
+            name: this.state.initialValueName,
+            dateTaken: this.state.initialValueDate,
+            image: this.state.initialValueImage
+          }}
+          img={
+            <Field
+              name="image"
+              component={RenderDropzoneInput}
+              label="image"
+              type="file"
+              onChangeInput={this.onChangeInput}
+            />
+          }
+        />
       </div>
     );
   }
 }
 
-const validate = formValues => {
-  const errors = {};
-
-  _.each(FIELDS, ({ name, label }) => {
-    if (!formValues[name] || formValues[name].trim().length < 1) {
-      errors[name] = `You must enter ${label}`;
-    }
-  });
-
-  if (!formValues.image) {
-    errors.image = "Please select a photo";
-  }
-
-  return errors;
-};
-
-const MyForm = reduxForm({
-  form: "addPhotoForm",
-  validate,
-  multipartForm: true
-})(AddAPhoto);
-
-export default connect(null, { addPhoto })(MyForm);
+export default connect(null, { addPhoto })(PhotoAdd);

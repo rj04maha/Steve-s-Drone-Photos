@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import _ from "lodash";
-import { addToCart, removeFromCart, selectPhoto } from "../../actions";
+import { addToCart, removeFromCart } from "../../actions";
 
 class CheckInCartButton extends React.Component {
   render() {
@@ -31,7 +31,7 @@ class CheckInCartButton extends React.Component {
 }
 
 const mapStateToProps = state => {
-  return { cart: state.cart, selectPhoto: state.selectPhoto };
+  return { cart: state.cart };
 };
 
 const mapDispatchToProps = dispatch => {
@@ -41,9 +41,6 @@ const mapDispatchToProps = dispatch => {
     },
     removeFromCart: photoId => {
       dispatch(removeFromCart(photoId));
-    },
-    selectPhoto: photo => {
-      dispatch(selectPhoto(photo));
     }
   };
 };

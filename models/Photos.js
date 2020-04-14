@@ -4,8 +4,9 @@ const { Schema } = mongoose;
 const photoSchema = new Schema({
   name: { type: String, required: true },
   tags: [String],
-  description: { type: String, required: true },
   source: { type: String, required: true },
+  location: { type: String, required: true },
+  dateTaken: { type: String, required: true },
   dateAdded: Date
 });
 

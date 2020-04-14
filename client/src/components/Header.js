@@ -3,16 +3,20 @@ import { useSelector, shallowEqual } from "react-redux";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import { Link } from "react-router-dom";
-import "./Header.css";
 
 const Header = () => {
   const cart = useSelector(state => state.cart, shallowEqual);
 
   return (
-    <Navbar collapseOnSelect expand="lg" bg="light" variant="light">
-      <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+    <Navbar
+      collapseOnSelect
+      expand="sm"
+      bg="light"
+      variant="light"
+      sticky="top"
+    >
       <Navbar.Brand>
-        <Link className="navbar-brand" to="/">
+        <Link to="/">
           <img
             className="ui medium image logo"
             src="/images/logo.png"
@@ -20,29 +24,22 @@ const Header = () => {
           />
         </Link>
       </Navbar.Brand>
-
-      <Navbar.Collapse id="responsive-navbar-nav">
+      <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+      <Navbar.Collapse id="responsive-navbar-nav text-center">
         <Nav className="mr-auto">
-          <Nav.Link>
-            <Link to="/photos" className="nav-link">
-              PHOTOS
-            </Link>
-          </Nav.Link>
-          <Nav.Link>
-            <Link to="/about" className="nav-link">
-              ABOUT
-            </Link>
-          </Nav.Link>
-          <Nav.Link>
-            <Link to="/contact" className="nav-link">
-              CONTACT
-            </Link>
-          </Nav.Link>
+          <Link to="/photos" className="nav-link">
+            PHOTOS
+          </Link>
+          <Link to="/about" className="nav-link">
+            ABOUT
+          </Link>
+          <Link to="/contact" className="nav-link">
+            CONTACT
+          </Link>
         </Nav>
-      </Navbar.Collapse>
-      <Nav>
-        <Nav.Link>
-          <div className="navbar checkout_button">
+
+        <Nav>
+          <div className="navbar">
             <div className="ui compact menu">
               <Link to="/cart" className="item">
                 {Object.keys(cart).length > 0 ? (
@@ -60,8 +57,8 @@ const Header = () => {
               </Link>
             </div>
           </div>
-        </Nav.Link>
-      </Nav>
+        </Nav>
+      </Navbar.Collapse>
     </Navbar>
   );
 };

@@ -15,7 +15,6 @@ class OrderView extends React.Component {
         lastName,
         email,
         datePlaced,
-        phone,
         fullfilled,
         photos,
         customerNote,
@@ -25,6 +24,7 @@ class OrderView extends React.Component {
       } = this.props.order;
 
       const updatedFields = null; //fix me
+      const date = new Date(datePlaced);
       return (
         <div className="ui container">
           <h1>View Order</h1>
@@ -50,11 +50,9 @@ class OrderView extends React.Component {
               </tr>
               <tr>
                 <td className="collapsing">Order placed</td>
-                <td>{datePlaced}</td>
-              </tr>
-              <tr>
-                <td className="collapsing">Phone number</td>
-                <td>{phone}</td>
+                <td>
+                  {`${date.toLocaleDateString()} ${date.toLocaleTimeString()}`}
+                </td>
               </tr>
               <tr>
                 <td className="collapsing">Photos</td>
@@ -79,18 +77,23 @@ class OrderView extends React.Component {
             </tbody>
           </table>
           <Link to="/admin" className="ui button">
+            <i className="left arrow icon"></i>
             Back to dashboard
           </Link>
           <button
             onClick={() => this.props.updateOrder(_id, updatedFields)}
-            className="ui right floated button"
+            className="ui olive right floated button"
           >
             Update
           </button>
         </div>
       );
     } else {
-      return <div>Loading...</div>;
+      return (
+        <div className="ui container">
+          The order with #{this.props.match.params.id} cannot be found
+        </div>
+      );
     }
   }
 }

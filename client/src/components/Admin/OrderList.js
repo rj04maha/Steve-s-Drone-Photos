@@ -26,37 +26,37 @@ class OrderList extends Component {
     return (
       <div>
         <OrderTable
+          arr={notPaid}
+          title="New orders"
+          alert={
+            <div>
+              <i className="red attention icon"></i>Need to collect payment
+            </div>
+          }
+        />
+        <OrderTable
           arr={paid}
-          title="Ready to ship"
+          title="Recieved payment"
           alert={
             <div>
               <i className="yellow attention icon"></i>Send customers their
-              photo
+              photo(s)
             </div>
           }
         />
-        <OrderTable
-          arr={notPaid}
-          title="Need payment"
-          alert={
-            <div>
-              <i className="red attention icon"></i>Customers did not pay
-            </div>
-          }
-        />
+
         <OrderTable
           arr={notPaidButShipped}
-          title="Shipped but did not pay"
+          title="Photo(s) have been sent, but customer did not pay"
           alert={
             <div>
-              <i className="red attention icon"></i>Customers did not pay but
-              you sent them their photo anyways
+              <i className="red attention icon"></i>Need to collect payment
             </div>
           }
         />
         <OrderTable
           arr={completed}
-          title="Completed Orders"
+          title="Completed orders"
           alert={
             <div>
               <i className="green attention icon"></i>These orders are
