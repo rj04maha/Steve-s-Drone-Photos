@@ -75,6 +75,9 @@ const PhotoManage = () => {
         <div className="ui middle aligned divided list">{renderGrid()}</div>
       </div>
     );
+  }
+  if (Object.keys(photos).length === 0) {
+    return <div>There are no photos uploaded</div>;
   } else {
     return (
       <div className="ui active inverted dimmer">
