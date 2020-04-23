@@ -63,7 +63,7 @@ export const removeFromCart = (photoId) => {
 export const submitOrder = (values) => async (dispatch) => {
   const res = await axios.post("/api/orders", values);
   dispatch({ type: "SUBMIT_ORDER", payload: res.data });
-  history.push("/order_complete");
+  history.push("/order-complete");
 };
 
 // Fetch all orders

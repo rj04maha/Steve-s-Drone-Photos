@@ -3,23 +3,41 @@ const Order = mongoose.model("orders");
 const SendEmail = require("../services/SendEmail");
 const checkAdmin = require("../middlewares/checkAdmin");
 
-module.exports = app => {
+module.exports = (app) => {
   // Create order
   app.post("/api/orders", async (req, res) => {
-    const { firstName, lastName, email, photos, customerNote } = req.body;
+    const {
+      firstName,
+      lastName,
+      email,
+      addr1,
+      addr2,
+      zip,
+      state,
+      payment,
+      total,
+      photos,
+      customerNote,
+    } = req.body;
 
     const order = new Order({
       firstName,
       lastName,
       email,
-      datePlaced: Date.now(),
+      addr1,
+      addr2,
+      zip,
+      state,
+      payment,
+      total,
       photos,
-      customerNote
+      customerNote,
+      datePlaced: Date.now(),
     });
 
     try {
       const newOrder = await order.save();
-      SendEmail(newOrder);
+      //SendEmail(newOrder);
       res.send(newOrder);
     } catch (err) {
       res.send(err.message);

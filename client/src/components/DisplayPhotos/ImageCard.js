@@ -56,7 +56,7 @@ class ImageCard extends React.Component {
               top: "0",
             }}
           >
-            <CheckInCartButton photo={this.props.image}></CheckInCartButton>
+            <CheckInCartButton photo={this.props.image} />
           </div>
         </div>
       </div>

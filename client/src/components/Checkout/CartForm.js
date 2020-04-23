@@ -1,94 +1,44 @@
 import React, { useState } from "react";
-import { Field, reduxForm, FieldArray, formValueSelector } from "redux-form";
-import { useDispatch, connect } from "react-redux";
 import { Link } from "react-router-dom";
+import {
+  Field,
+  reduxForm,
+  unregisterField,
+  formValueSelector,
+  change,
+} from "redux-form";
+import { useDispatch, connect } from "react-redux";
 import _ from "lodash";
-import { removeFromCart } from "../../actions";
+import Sidebar from "./Sidebar";
 import CalculateTotal from "./CalculateTotal";
 
 let CartForm = (props) => {
-  const { getValues } = props;
-
-  let totals = CalculateTotal(getValues);
-
   const [isEnabled, setIsEnabled] = useState(true);
+
+  const { getValues } = props;
+  var totals = CalculateTotal(getValues);
+  if (totals) {
+    props.setMasterStates(totals.shipping, totals.totalCost);
+  }
 
   const dispatch = useDispatch();
 
-  function onlyOnce(fields) {
-    if (fields.length < 1) {
-      fields.push({});
-    }
+  function removeItem(id) {
+    setIsEnabled(false);
+    dispatch(props.removeFromCart(id));
+    dispatch(unregisterField("orderForm", `photos.${id}.digital`));
+    dispatch(unregisterField("orderForm", `photos.${id}.copy13x19`));
+    dispatch(unregisterField("orderForm", `photos.${id}.copy11x14`));
+    dispatch(change("orderForm", `photos.${id}.digital`, ""));
+    dispatch(change("orderForm", `photos.${id}.copy13x19`, ""));
+    dispatch(change("orderForm", `photos.${id}.copy11x14`, ""));
+    setIsEnabled(true);
   }
-
-  const renderImage = ({ fields }) => (
-    <>
-      <>{onlyOnce(fields)}</>
-      {fields.map((photo, index) => (
-        <div key={index}>
-          <div className="three fields">
-            <div className="inline field">
-              <label>Digital Copy</label>
-              <Field
-                name={`${photo}.digital`}
-                type="text"
-                component="select"
-                label="Digital"
-              >
-                <option />
-                <option value="yes">1 - $10 </option>
-              </Field>
-            </div>
-            <div className="inline field">
-              <label>13" x 19"</label>
-              <Field
-                name={`${photo}.copy13x19`}
-                label='13" x 19"'
-                component="select"
-              >
-                <option />
-                <option value="1">1 - $15 each</option>
-                <option value="2">2 - $30</option>
-                <option value="3">3 - $45</option>
-                <option value="4">4 - $60</option>
-                <option value="5">5 - $75</option>
-                <option value="6">6 - $90</option>
-                <option value="7">7 - $105</option>
-                <option value="8">8 - $120</option>
-                <option value="9">9 - $135</option>
-                <option value="10">10 - $150</option>
-              </Field>
-            </div>
-            <div className="inline field">
-              <label>11" x 14"</label>
-              <Field
-                name={`${photo}.copy11x14`}
-                label='11" x 14"'
-                component="select"
-              >
-                <option />
-                <option value="1">1 - $20 each</option>
-                <option value="2">2 - $40</option>
-                <option value="3">3 - $60</option>
-                <option value="4">4 - $80</option>
-                <option value="5">5 - $100</option>
-                <option value="6">6 - $120</option>
-                <option value="7">7 - $140</option>
-                <option value="8">8 - $160</option>
-                <option value="9">9 - $180</option>
-                <option value="10">10 - $200</option>
-              </Field>
-            </div>
-          </div>
-        </div>
-      ))}
-    </>
-  );
 
   const renderError = ({ meta: { touched, error } }) => {
     if (error && touched) {
       return (
-        <div className="ui inverted red segment">
+        <div className="ui red message">
           <i className="warning icon"></i>
           {error}
         </div>
@@ -111,28 +61,20 @@ let CartForm = (props) => {
     );
   }
 
-  function getCost(x) {
-    if (totals) {
-      return `$${totals[x]}.00`;
-    }
-  }
+  const buttons = (
+    <>
+      <button disabled={!isEnabled} className="ui button olive fluid">
+        {props.button}
+      </button>
+      <br />
+      <Link to="/photos">
+        <button className="ui button fluid">
+          Add more photos to cart <i className="plus icon" />
+        </button>
+      </Link>
+    </>
+  );
 
-  function getSummary() {
-    if (totals) {
-      return (
-        <>
-          <div style={{ float: "right" }}>${totals.totalCost}.00</div>
-          <div>Subtotal </div>
-          <div style={{ float: "right" }}>$15.00</div>
-          <div> Shipping & Handling </div>
-          <div className="ui divider"></div>
-          <h3 style={{ float: "right" }}>${totals.totalCost + 15}.00</h3>
-          <h3>Total </h3>
-          <div className="ui divider"></div>
-        </>
-      );
-    }
-  }
   const cart = props.photos;
   return (
     <form className="ui form" onSubmit={props.handleSubmit(onSubmit)}>
@@ -170,16 +112,19 @@ let CartForm = (props) => {
             business days.
           </p>
           <div className="ui divider"></div>
-
           <div className="ui relaxed divided list">
-            {cart.map((image, index) => (
+            {cart.map((image) => (
               <div className="item" key={image._id} style={{ padding: "1em" }}>
                 <div className="right floated content">
+                  {totals
+                    ? totals[image._id]
+                      ? `$${totals[image._id]}.00`
+                      : "$0.00"
+                    : "$0.00"}
                   <i
-                    onClick={() => dispatch(removeFromCart(image._id))}
-                    className="close link icon"
+                    onClick={() => removeItem(image._id)}
+                    className="trash alternate link icon"
                   />
-                  {getCost(_.findIndex(cart, image))}
                 </div>
 
                 <img
@@ -192,57 +137,92 @@ let CartForm = (props) => {
                   <div className="header">{image.name}</div>
                   <div className="description">{image.location}</div>
                 </div>
+                <Field name={image._id} component={renderError} />
                 <div>
-                  <FieldArray
-                    name={`id.${image._id}`}
-                    component={renderImage}
-                  />
-                  <Field name={index.toString()} component={renderError} />
+                  <div className="three fields">
+                    <div className="inline field">
+                      <label>Digital Copy</label>
+                      <Field
+                        name={`photos.${image._id}.digital`}
+                        type="text"
+                        component="select"
+                        label="Digital"
+                      >
+                        <option />
+                        <option value="yes">1 - $10 </option>
+                      </Field>
+                    </div>
+                    <div className="inline field">
+                      <label>13" x 19" Qty</label>
+                      <Field
+                        name={`photos.${image._id}.copy13x19`}
+                        label='13" x 19"'
+                        component="select"
+                      >
+                        <option />
+                        <option value="1">1 - $15 each</option>
+                        <option value="2">2 - $30</option>
+                        <option value="3">3 - $45</option>
+                        <option value="4">4 - $60</option>
+                        <option value="5">5 - $75</option>
+                        <option value="6">6 - $90</option>
+                        <option value="7">7 - $105</option>
+                        <option value="8">8 - $120</option>
+                        <option value="9">9 - $135</option>
+                        <option value="10">10 - $150</option>
+                      </Field>
+                    </div>
+                    <div className="inline field">
+                      <label>11" x 14" Qty</label>
+                      <Field
+                        name={`photos.${image._id}.copy11x14`}
+                        label='11" x 14"'
+                        component="select"
+                      >
+                        <option />
+                        <option value="1">1 - $20 each</option>
+                        <option value="2">2 - $40</option>
+                        <option value="3">3 - $60</option>
+                        <option value="4">4 - $80</option>
+                        <option value="5">5 - $100</option>
+                        <option value="6">6 - $120</option>
+                        <option value="7">7 - $140</option>
+                        <option value="8">8 - $160</option>
+                        <option value="9">9 - $180</option>
+                        <option value="10">10 - $200</option>
+                      </Field>
+                    </div>
+                  </div>
                 </div>
               </div>
             ))}
           </div>
         </div>
         <div className="six wide column">
-          <div
-            className="ui segment"
-            style={{
-              position: "-webkit-sticky",
-              position: "sticky",
-              top: "8em",
-            }}
-          >
-            <h2>Summary</h2>
-            {getSummary()}
-            <button disabled={!isEnabled} className="ui button olive fluid">
-              {props.button}
-            </button>
-            <br />
-            <Link to="/photos">
-              <button className="ui button fluid">
-                <i className="left arrow icon"></i>
-                Add more photos to cart
-              </button>
-            </Link>
-          </div>
+          <Sidebar
+            buttons={buttons}
+            totes={totals ? totals.totalCost : 0}
+            handlingCost={totals ? (totals.shipping ? 15 : 0) : 0}
+          />
         </div>
       </div>
     </form>
   );
 };
 
-const validate = (formValues) => {
+const validate = (formValues, props) => {
   const errors = {};
 
-  if (formValues.id) {
-    Object.values(formValues.id).map((copy, copyIndex) => {
-      if (_.isEmpty(copy[0])) {
-        errors[copyIndex] =
-          "You must select at least one item or remove it from your cart.";
-      }
-      return null;
-    });
-  }
+  _.mapKeys(props.photos, (photo) => {
+    if (
+      formValues.photos === undefined ||
+      !formValues.photos.hasOwnProperty(photo._id)
+    ) {
+      errors[photo._id] =
+        "You must choose quantity or remove it from your cart.";
+    }
+  });
+
   return errors;
 };
 
@@ -255,8 +235,7 @@ CartForm = reduxForm({
 const selector = formValueSelector("orderForm");
 
 CartForm = connect((state) => {
-  // can select values individually
-  const getValues = selector(state, "id");
+  const getValues = selector(state, "photos");
   return {
     getValues,
   };

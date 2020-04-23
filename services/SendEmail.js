@@ -2,7 +2,7 @@ const nodemailer = require("nodemailer");
 const orderTemplate = require("./emailTemplates/newOrder");
 const keys = require("../config/keys");
 
-module.exports = order => {
+module.exports = (order) => {
   const { firstName, lastName, email } = order;
   var transporter = nodemailer.createTransport({
     host: "smtp.gmail.com",
@@ -10,8 +10,8 @@ module.exports = order => {
     secure: true,
     auth: {
       user: keys.googleUserName,
-      pass: keys.googlePass
-    }
+      pass: keys.googlePass,
+    },
   });
 
   const message = {
@@ -19,12 +19,11 @@ module.exports = order => {
     to: email,
     bcc: "stevebaloghdronephotos@gmail.com",
     subject: `New order placed by ${firstName} ${lastName}`,
-    html: orderTemplate(order)
+    html: orderTemplate(order),
   };
 
-  transporter.sendMail(message, function(err, info) {
+  transporter.sendMail(message, function (err, info) {
     if (err) {
-      res.send(422).send(err);
       console.log(err);
     } else {
       console.log(info);

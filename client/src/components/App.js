@@ -7,13 +7,12 @@ import Photos from "./DisplayPhotos/Photos";
 import PhotoDetail from "./DisplayPhotos/PhotoDetail";
 import About from "./About";
 import Contact from "./Contact";
-//import Cart from "./Checkout/Cart";
-//import Checkout from "./Checkout/Checkout";
 import Footer from "./Footer";
 import AdminDashboard from "./Admin/AdminDashboard";
 import AdminLogin from "./Admin/AdminLogin";
 import OrderView from "./Admin/OrderView";
 import MasterForm from "./Checkout/MasterForm";
+import OrderComplete from "./Checkout/OrderComplete";
 import PhotoAdd from "./Admin/PhotoAdd";
 import PhotoEdit from "./Admin/PhotoEdit";
 import PhotoDelete from "./Admin/PhotoDelete";
@@ -21,7 +20,7 @@ import PhotoManage from "./Admin/PhotoManage";
 //import WithAuth from "./WithAuth";
 
 const content = {
-  paddingBottom: "6rem"
+  paddingBottom: "6rem",
 };
 
 class App extends React.Component {
@@ -36,6 +35,7 @@ class App extends React.Component {
           <Route path="/about" exact component={About} />
           <Route path="/contact" exact component={Contact} />
           <Route path="/cart" exact component={MasterForm} />
+          <Route path="/order-complete" exact component={OrderComplete} />
           <Route path="/admin-login" exact component={AdminLogin} />
           <Route path="/admin" exact component={AdminDashboard} />
           <Route path="/orders/view/:id" exact component={OrderView} />

@@ -5,13 +5,18 @@ const orderSchema = new Schema({
   firstName: { type: String, required: true },
   lastName: { type: String, required: true },
   email: { type: String, required: true },
-  address: String,
+  addr1: String,
+  addr2: String,
+  zip: String,
+  state: String,
+  payment: { type: String, required: true },
   datePlaced: Date,
-  fullfilled: { type: Boolean, default: false },
-  photos: { type: String, required: true }, // change this to object or something else
+  photos: { type: Schema.Types.Mixed, required: true }, // change this to object or something else
   customerNote: String,
-  adminNote: String,
-  paid: { type: Boolean, default: false }
+  total: { type: Number, required: true },
+  //adminNote: String,
+  //paid: { type: Boolean, default: false },
+  //fullfilled: { type: Boolean, default: false },
 });
 
 mongoose.model("orders", orderSchema);

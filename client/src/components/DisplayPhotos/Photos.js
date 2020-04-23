@@ -18,7 +18,7 @@ const imageGrid = {
 };
 
 const Photos = () => {
-  const [isLoading, setIsLoading] = useState(true);
+  //const [isLoading, setIsLoading] = useState(true);
   const [search, setSearch] = useState("");
   const [searchByDate, setSearchByDate] = useState("");
   const photos = useSelector(
@@ -31,9 +31,9 @@ const Photos = () => {
   const searchByDateQuery = useSelector((state) => state.searchByDate);
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     const fetchData = async () => {
       dispatch(fetchPhotos());
-      setIsLoading(false);
     };
     fetchData();
     if (searchQuery) {
@@ -90,7 +90,7 @@ const Photos = () => {
   }
 
   function renderGrid() {
-    if (!isLoading && Object.keys(photos).length !== 0) {
+    if (Object.keys(photos).length !== 0) {
       const filteredPhotos = photos.filter((photo) => {
         return returnSearch(photo);
       });

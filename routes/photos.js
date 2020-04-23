@@ -36,7 +36,18 @@ module.exports = (app) => {
 
       const result = await cloudinary.uploader.upload(req.file.path, {
         public_id: name,
-        tags: tags,
+        transformation: [
+          { opacity: 100 },
+          {
+            angle: 320,
+            flags: "tiled",
+            overlay: "droneoutline-removebg-preview_yyz4hw",
+            opacity: 40,
+            width: 1000,
+            zoom: 1,
+            crop: "scale",
+          },
+        ],
       });
       source = result.url;
 

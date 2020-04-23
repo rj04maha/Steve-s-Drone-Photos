@@ -1,5 +1,7 @@
+import _ from "lodash";
+
 export default function (cart) {
-  let total = 0;
+  var checkForShipping = false;
 
   let numOfDigital = 0;
   let numOf13x19 = 0;
@@ -10,20 +12,22 @@ export default function (cart) {
   const costof11x14 = 20;
 
   if (cart) {
+    let total = 0;
     var totalObj = null;
-    var num = 0;
-    Object.values(cart).map((item) => {
+    _.mapKeys(cart, (photo, key) => {
       numOfDigital = 0;
       numOf13x19 = 0;
       numOf11x14 = 0;
-      if (item[0]["digital"] === "yes") {
+      if (photo["digital"]) {
         numOfDigital++;
       }
-      if (item[0]["copy13x19"]) {
-        numOf13x19 += Number(item[0]["copy13x19"]);
+      if (photo["copy13x19"]) {
+        numOf13x19 += Number(photo["copy13x19"]);
+        checkForShipping = true;
       }
-      if (item[0]["copy11x14"]) {
-        numOf11x14 += Number(item[0]["copy11x14"]);
+      if (photo["copy11x14"]) {
+        numOf11x14 += Number(photo["copy11x14"]);
+        checkForShipping = true;
       }
 
       var itemTotal =
@@ -33,15 +37,18 @@ export default function (cart) {
 
       total += itemTotal;
 
-      var pair = { [num]: itemTotal };
+      var pair = { [key]: itemTotal };
 
       totalObj = { ...totalObj, ...pair };
-      num++;
 
       return null;
     });
 
-    totalObj = { ...totalObj, ...{ totalCost: total } };
+    totalObj = {
+      ...totalObj,
+      ...{ totalCost: total },
+      ...{ shipping: checkForShipping },
+    };
   }
 
   return totalObj;

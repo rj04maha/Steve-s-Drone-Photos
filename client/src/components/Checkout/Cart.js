@@ -1,37 +1,28 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import CartForm from "./CartForm";
-
-// delete later
-//import { fetchPhotos } from "../../actions";
+import { removeFromCart } from "../../actions";
 
 const Cart = (props) => {
-  const cart = useSelector((state) => Object.values(state.cart));
-
-  //delete later
-  /*  const dispatch = useDispatch();
+  const cart = useSelector((state) => state.cart);
+  const [photos, setPhotos] = useState({});
 
   useEffect(() => {
-    const fetchData = async () => {
-      dispatch(fetchPhotos());
-    };
+    setPhotos(Object.values(cart));
+  }, [cart]);
 
-    fetchData();
-  }, [dispatch]);
-
-  const cart = useSelector((state) => Object.values(state.photos));
- */
-  ////
-
-  if (cart.length > 0) {
+  if (Object.keys(photos).length > 0) {
     return (
       <div className="ui container">
         <h1>Cart</h1>
         <CartForm
-          photos={cart}
+          key={photos}
+          photos={photos}
           button="Checkout"
           checkoutButton={props.onSubmit}
+          setMasterStates={props.setMasterStates}
+          removeFromCart={removeFromCart}
         />
       </div>
     );

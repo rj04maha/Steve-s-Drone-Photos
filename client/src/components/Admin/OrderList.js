@@ -9,6 +9,31 @@ class OrderList extends Component {
   }
 
   render() {
+    return (
+      <div>
+        <OrderTable arr={this.props.orders} title="Orders" />
+      </div>
+    );
+  }
+}
+
+function mapStateToProps(state) {
+  return { orders: Object.values(state.orders) };
+}
+
+export default connect(mapStateToProps, { fetchOrders })(OrderList);
+
+/* import React, { Component } from "react";
+import { connect } from "react-redux";
+import { fetchOrders } from "../../actions";
+import OrderTable from "./OrderTable";
+
+class OrderList extends Component {
+  componentDidMount() {
+    this.props.fetchOrders();
+  }
+
+  render() {
     const completed = this.props.orders.filter(
       order => order.fullfilled && order.paid
     );
@@ -74,3 +99,4 @@ function mapStateToProps(state) {
 }
 
 export default connect(mapStateToProps, { fetchOrders })(OrderList);
+ */
