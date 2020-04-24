@@ -27,6 +27,8 @@ module.exports = (app) => {
       api_key: keys.cloudinary_api_key,
       api_secret: keys.cloudinary_api_secret,
     });
+
+    console.log(keys.cloudinary_api_secret);
     try {
       name = req.body["name"];
       tags = req.body["tags"];
