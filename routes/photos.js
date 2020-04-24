@@ -14,9 +14,9 @@ cloudinary.config({
 });
 
 var date = Date.now();
+//  destination: "./public/uploads/",
 
 const storage = multer.diskStorage({
-  destination: "./public/uploads/",
   filename: function (req, file, cb) {
     cb(null, `${file.originalname}-${date}${path.extname(file.originalname)}`);
   },
@@ -26,9 +26,6 @@ const upload = multer({
   storage: storage,
 }).single("image");
 
-console.log(storage);
-console.log(upload);
-
 module.exports = (app) => {
   app.post("/api/photos", upload, async (req, res) => {
     try {
@@ -36,7 +33,9 @@ module.exports = (app) => {
       tags = req.body["tags"];
       location = req.body["location"];
       dateTaken = req.body["dateTaken"];
-      console.log(upload);
+
+      console.log("here is my console log!!");
+      console.log(req.file.path);
 
       const result = await cloudinary.uploader.upload(req.file.path, {
         public_id: name,
