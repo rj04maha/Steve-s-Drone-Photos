@@ -78,7 +78,7 @@ const PhotoManage = () => {
   }
   if (Object.keys(photos).length === 0) {
     return (
-      <div>
+      <div className="ui container">
         <Link to="/admin">
           <button className="ui button right floated">
             <i className="left arrow icon"></i>Back to dashboard

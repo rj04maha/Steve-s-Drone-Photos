@@ -26,6 +26,9 @@ const upload = multer({
   storage: storage,
 }).single("image");
 
+console.log(storage);
+console.log(upload);
+
 module.exports = (app) => {
   app.post("/api/photos", upload, async (req, res) => {
     try {
@@ -33,6 +36,7 @@ module.exports = (app) => {
       tags = req.body["tags"];
       location = req.body["location"];
       dateTaken = req.body["dateTaken"];
+      console.log(upload);
 
       const result = await cloudinary.uploader.upload(req.file.path, {
         public_id: name,
