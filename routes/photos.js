@@ -54,6 +54,9 @@ module.exports = (app) => {
       });
       source = result.url;
 
+      console.log("here is the result: ~~~");
+      console.log(result);
+
       const photo = new Photo({
         name,
         tags: tags.split(",").map((tag) => tag.trim()), //: tags.split(",").map(tag => ({ tag: tag.trim() })),
@@ -64,9 +67,12 @@ module.exports = (app) => {
       });
 
       const newPhoto = await photo.save();
+
+      console.log("here is the new photo: ~~~");
+      console.log(newPhoto);
       res.send(newPhoto);
     } catch (err) {
-      res.send(`There was a problem uploading this photo: ${err.message}`);
+      res.send(`There was a problem uploading this photo: ${err}`);
     }
   });
 
