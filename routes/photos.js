@@ -7,6 +7,12 @@ const keys = require("../config/keys");
 const multer = require("multer");
 const path = require("path");
 
+cloudinary.config({
+  cloud_name: keys.cloudinary_cloud_name,
+  api_key: keys.cloudinary_api_key,
+  api_secret: keys.cloudinary_api_secret,
+});
+
 var date = Date.now();
 //  destination: "./public/uploads/",
 
@@ -22,21 +28,11 @@ const upload = multer({
 
 module.exports = (app) => {
   app.post("/api/photos", upload, async (req, res) => {
-    cloudinary.config({
-      cloud_name: keys.cloudinary_cloud_name,
-      api_key: keys.cloudinary_api_key,
-      api_secret: keys.cloudinary_api_secret,
-    });
-
-    console.log(keys.cloudinary_api_secret);
     try {
       name = req.body["name"];
       tags = req.body["tags"];
       location = req.body["location"];
       dateTaken = req.body["dateTaken"];
-
-      console.log("here is my console log!!");
-      console.log(req.file.path);
 
       const result = await cloudinary.uploader.upload(req.file.path, {
         public_id: name,
