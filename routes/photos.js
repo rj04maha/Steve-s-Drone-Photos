@@ -100,13 +100,17 @@ module.exports = (app) => {
   app.put("/api/photos/:id", async (req, res) => {
     var { name, tags, location, dateTaken } = req.body;
 
+    if (typeof tags === "string") {
+      tags = tags.split(",").map((tag) => tag.trim());
+    }
+
     try {
       await Photo.updateOne(
         { _id: req.params.id },
         {
           $set: {
             name: name,
-            tags: tags.split(",").map((tag) => tag.trim()),
+            tags: tags,
             location: location,
             dateTaken: dateTaken,
           },

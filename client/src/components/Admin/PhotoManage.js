@@ -77,7 +77,16 @@ const PhotoManage = () => {
     );
   }
   if (Object.keys(photos).length === 0) {
-    return <div>There are no photos uploaded</div>;
+    return (
+      <div>
+        <Link to="/admin">
+          <button className="ui button right floated">
+            <i className="left arrow icon"></i>Back to dashboard
+          </button>
+        </Link>
+        <div>There are no photos uploaded</div>
+      </div>
+    );
   } else {
     return (
       <div className="ui active inverted dimmer">

@@ -12,7 +12,6 @@ const FIELDS = [
 
 const PhotoForm = (props) => {
   const [isEnabled, setIsEnabled] = useState(true);
-  console.log(props);
 
   function renderFields() {
     return _.map(FIELDS, ({ label, name }) => {

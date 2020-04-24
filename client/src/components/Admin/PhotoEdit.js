@@ -11,12 +11,12 @@ class PhotoEdit extends React.Component {
   componentDidMount() {
     this.props.fetchPhoto(this.props.match.params.id);
   }
-  onSubmit = formValues => {
+  onSubmit = (formValues) => {
     this.setState({ message: null });
     axios
       .put(`/api/photos/${formValues._id}`, formValues)
-      .then(response => this.setState({ message: response }))
-      .catch(err => {
+      .then((response) => this.setState({ message: response }))
+      .catch((err) => {
         this.setState({ message: err.message });
       });
   };
