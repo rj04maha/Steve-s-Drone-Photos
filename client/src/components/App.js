@@ -17,7 +17,7 @@ import PhotoAdd from "./Admin/PhotoAdd";
 import PhotoEdit from "./Admin/PhotoEdit";
 import PhotoDelete from "./Admin/PhotoDelete";
 import PhotoManage from "./Admin/PhotoManage";
-//import WithAuth from "./WithAuth";
+import WithAuth from "./WithAuth";
 
 const content = {
   paddingBottom: "6rem",
@@ -37,18 +37,25 @@ class App extends React.Component {
           <Route path="/cart" exact component={MasterForm} />
           <Route path="/order-complete" exact component={OrderComplete} />
           <Route path="/admin-login" exact component={AdminLogin} />
-          <Route path="/admin" exact component={AdminDashboard} />
-          <Route path="/orders/view/:id" exact component={OrderView} />
-          <Route path="/add-photo" exact component={PhotoAdd} />
-          <Route path="/photo/edit/:id" exact component={PhotoEdit} />
-          <Route path="/photo/delete/:id" exact component={PhotoDelete} />
-          <Route path="/manage-photos" exact component={PhotoManage} />
-          {/* <Route path="/admin" exact component={WithAuth(AdminDashboard)} />
           <Route
             path="/orders/view/:id"
             exact
-            component={WithAuth(ViewOrder)}
-          /> */}
+            component={WithAuth(OrderView)}
+          />
+          <Route path="/add-photo" exact component={WithAuth(PhotoAdd)} />
+          <Route path="/photo/edit/:id" exact component={WithAuth(PhotoEdit)} />
+          <Route
+            path="/photo/delete/:id"
+            exact
+            component={WithAuth(PhotoDelete)}
+          />
+          <Route
+            path="/manage-photos"
+            exact
+            component={WithAuth(PhotoManage)}
+          />
+          <Route path="/admin" exact component={WithAuth(AdminDashboard)} />
+
           <Footer />
         </Router>
       </div>

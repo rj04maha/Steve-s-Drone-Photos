@@ -61,9 +61,12 @@ const OrderView = (props) => {
     const { datePlaced, _id, photos, total } = order;
     const date = new Date(datePlaced);
     return (
-      <div className="ui container">
+      <div className="ui container" style={{ paddingTop: "1em" }}>
+        <Link to="/admin" className="ui button right floated">
+          <i className="left arrow icon"></i>
+          Back to dashboard
+        </Link>
         <h1>View Order</h1>
-
         <table className="ui celled table">
           <thead>
             <tr>
@@ -99,10 +102,6 @@ const OrderView = (props) => {
             </tr>
           </tfoot>
         </table>
-        <Link to="/admin" className="ui button">
-          <i className="left arrow icon"></i>
-          Back to dashboard
-        </Link>
       </div>
     );
   }
@@ -126,148 +125,3 @@ const OrderView = (props) => {
 };
 
 export default OrderView;
-
-/* 
-
-<tr>
-              <td className="collapsing">Last Name</td>
-              <td>{lastName}</td>
-            </tr>
-            <tr>
-              <td className="collapsing">Email</td>
-              <td>{email}</td>
-            </tr>
-            <tr>
-              <td className="collapsing">Order placed</td>
-              <td>
-                {`${date.toLocaleDateString()} ${date.toLocaleTimeString()}`}
-              </td>
-            </tr>
-            <tr>
-              <td className="collapsing">Photos</td>
-              <td>{photos}</td>
-            </tr>
-            <tr>
-              <td className="collapsing">Notes from customer</td>
-              <td>{customerNote}</td>
-            </tr>
-            <tr>
-              <td className="collapsing">Notes from you</td>
-              <td>{adminNote}</td>
-            </tr>
-            <tr>
-              <td className="collapsing">Fullfilled</td>
-              <td>{fullfilled ? "Yes" : "No"}</td>
-            </tr>
-            <tr>
-              <td className="collapsing">Paid</td>
-              <td>{paid ? "Yes" : "No"}</td>
-            </tr>
-
-
-import React from "react";
-import { Link } from "react-router-dom";
-import { connect } from "react-redux";
-import { fetchOrder } from "../../actions";
-
-class OrderView extends React.Component {
-  componentDidMount() {
-    this.props.fetchOrder(this.props.match.params.id);
-  }
-  render() {
-    if (this.props.order) {
-      //console.log(this.props.order.firstName);
-      const {
-        firstName,
-        lastName,
-        email,
-        datePlaced,
-        fullfilled,
-        photos,
-        customerNote,
-        adminNote,
-        paid,
-        _id,
-      } = this.props.order;
-
-      const updatedFields = null; //fix me
-      const date = new Date(datePlaced);
-      return (
-        <div className="ui container">
-          <h1>View Order</h1>
-
-          <table className="ui celled table">
-            <thead>
-              <tr>
-                <th colSpan="2">Order # {_id}</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td className="collapsing">First Name</td>
-                <td>{firstName}</td>
-              </tr>
-              <tr>
-                <td className="collapsing">Last Name</td>
-                <td>{lastName}</td>
-              </tr>
-              <tr>
-                <td className="collapsing">Email</td>
-                <td>{email}</td>
-              </tr>
-              <tr>
-                <td className="collapsing">Order placed</td>
-                <td>
-                  {`${date.toLocaleDateString()} ${date.toLocaleTimeString()}`}
-                </td>
-              </tr>
-              <tr>
-                <td className="collapsing">Photos</td>
-                <td>{photos}</td>
-              </tr>
-              <tr>
-                <td className="collapsing">Notes from customer</td>
-                <td>{customerNote}</td>
-              </tr>
-              <tr>
-                <td className="collapsing">Notes from you</td>
-                <td>{adminNote}</td>
-              </tr>
-              <tr>
-                <td className="collapsing">Fullfilled</td>
-                <td>{fullfilled ? "Yes" : "No"}</td>
-              </tr>
-              <tr>
-                <td className="collapsing">Paid</td>
-                <td>{paid ? "Yes" : "No"}</td>
-              </tr>
-            </tbody>
-          </table>
-          <Link to="/admin" className="ui button">
-            <i className="left arrow icon"></i>
-            Back to dashboard
-          </Link>
-          <button
-            onClick={() => this.props.updateOrder(_id, updatedFields)}
-            className="ui olive right floated button"
-          >
-            Update
-          </button>
-        </div>
-      );
-    } else {
-      return (
-        <div className="ui container">
-          The order with #{this.props.match.params.id} cannot be found
-        </div>
-      );
-    }
-  }
-}
-
-const mapStateToProps = (state, ownProps) => {
-  return { order: state.orders[ownProps.match.params.id] };
-};
-
-export default connect(mapStateToProps, { fetchOrder })(OrderView);
- */

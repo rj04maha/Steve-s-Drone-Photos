@@ -18,7 +18,7 @@ class AdminDashboard extends React.Component {
         <h1>Admin dashboard</h1>
 
         <div>
-          <OrderList></OrderList>
+          <OrderList />
         </div>
       </div>
     );

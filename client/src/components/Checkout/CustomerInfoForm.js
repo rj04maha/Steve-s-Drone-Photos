@@ -6,6 +6,9 @@ import RenderStateInput from "./RenderStateInput";
 import RenderPayment from "./RenderPayment";
 
 class CustomerInfoForm extends React.Component {
+  componentDidMount() {
+    window.scrollTo(0, 0);
+  }
   render() {
     const { handleSubmit, previousPage } = this.props;
 

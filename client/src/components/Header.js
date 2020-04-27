@@ -1,11 +1,11 @@
 import React from "react";
-import { useSelector, shallowEqual } from "react-redux";
+import { useSelector } from "react-redux";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import { Link } from "react-router-dom";
 
 const Header = () => {
-  const cart = useSelector(state => state.cart, shallowEqual);
+  const cart = useSelector((state) => state.cart);
 
   return (
     <Navbar

@@ -11,7 +11,6 @@ export const addPhoto = (values) => async (dispatch) => {
   };
   const res = await axios.post("/api/photos", values, config);
   dispatch({ type: "ADD_PHOTO", payload: res.data });
-  //history.push("/admin");
   history.push("/manage-photos");
 };
 
@@ -63,6 +62,7 @@ export const removeFromCart = (photoId) => {
 export const submitOrder = (values) => async (dispatch) => {
   const res = await axios.post("/api/orders", values);
   dispatch({ type: "SUBMIT_ORDER", payload: res.data });
+  dispatch({ type: "CLEAR_CART" });
   history.push("/order-complete");
 };
 
@@ -94,7 +94,7 @@ export const adminLogin = async (password) => {
       "Content-Type": "application/json",
     },
   };
-  await axios.post("/api/adminLogin", password, config);
+  const res = await axios.post("/api/adminLogin", password, config);
   history.push("/admin");
 };
 

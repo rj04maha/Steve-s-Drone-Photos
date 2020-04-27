@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-//import PropTypes from "prop-types";
 import WizardFormFirstPage from "./Cart";
 import WizardFormSecondPage from "./CustomerInfoForm";
 import WizardFormThirdPage from "./ConfirmOrder";
@@ -30,9 +29,6 @@ const MasterForm = (props) => {
   const previousPage = () => {
     setPage(page - 1);
   };
-
-  //const { onSubmit } = props;
-
   return (
     <div>
       {page === 1 && (

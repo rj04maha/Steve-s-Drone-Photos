@@ -27,7 +27,7 @@ const upload = multer({
 }).single("image");
 
 module.exports = (app) => {
-  app.post("/api/photos", upload, async (req, res) => {
+  app.post("/api/photos", checkAdmin, upload, async (req, res) => {
     try {
       name = req.body["name"];
       tags = req.body["tags"];
@@ -51,12 +51,9 @@ module.exports = (app) => {
       });
       source = result.url;
 
-      console.log("here is the result: ~~~");
-      console.log(result);
-
       const photo = new Photo({
         name,
-        tags: tags.split(",").map((tag) => tag.trim()), //: tags.split(",").map(tag => ({ tag: tag.trim() })),
+        tags: tags.split(",").map((tag) => tag.trim()),
         location,
         source,
         dateTaken,
@@ -65,11 +62,9 @@ module.exports = (app) => {
 
       const newPhoto = await photo.save();
 
-      console.log("here is the new photo: ~~~");
-      console.log(newPhoto);
       res.send(newPhoto);
     } catch (err) {
-      res.send(`There was a problem uploading this photo: ${err}`);
+      res.status(422).send(`There was a problem uploading this photo: ${err}`);
     }
   });
 
@@ -78,7 +73,7 @@ module.exports = (app) => {
       const allPhotos = await Photo.find();
       res.send(allPhotos);
     } catch (err) {
-      res.send(err.message);
+      res.status(422).send(err.message);
     }
   });
 
@@ -87,23 +82,22 @@ module.exports = (app) => {
       const photoMatch = await Photo.findById(req.params.id).exec();
       res.send(photoMatch);
     } catch (err) {
-      res.status(422).send("Photo cannot be found");
+      res.status(422).send("Photo cannot be found: " + err);
     }
   });
 
-  app.delete("/api/photos/:id", async (req, res) => {
+  app.delete("/api/photos/:id", checkAdmin, async (req, res) => {
     try {
       const photoMatch = await Photo.findById(req.params.id).exec();
-      console.log(photoMatch.name);
       cloudinary.uploader.destroy(photoMatch.name);
       await Photo.findOneAndDelete({ _id: req.params.id });
       res.send("Photo deleted");
     } catch (err) {
-      res.status(422).send("There was a problem deleting this photo.");
+      res.status(422).send("There was a problem deleting this photo: " + err);
     }
   });
 
-  app.put("/api/photos/:id", async (req, res) => {
+  app.put("/api/photos/:id", checkAdmin, async (req, res) => {
     var { name, tags, location, dateTaken } = req.body;
 
     if (typeof tags === "string") {
@@ -124,8 +118,7 @@ module.exports = (app) => {
       ).exec();
       res.status(202).send("Updated successfully");
     } catch (err) {
-      console.log(err);
-      res.status(422).send("There was a problem updating this photo");
+      res.status(422).send("There was a problem updating this photo: " + err);
     }
   });
 };

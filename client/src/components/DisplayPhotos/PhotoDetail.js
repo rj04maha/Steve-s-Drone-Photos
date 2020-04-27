@@ -21,8 +21,8 @@ const PhotoDetail = (props) => {
   function renderTags(tags) {
     return tags.map((tag) => {
       return (
-        <span className="ui tag label" key={tag}>
-          {tag}
+        <span className="ui tag label" key={tag} style={{ marginTop: ".2em" }}>
+          {tag.toUpperCase()}
         </span>
       );
     });

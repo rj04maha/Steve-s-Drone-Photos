@@ -44,8 +44,9 @@ module.exports = (app) => {
     }
   });
 
-  //app.get("/api/orders", checkAdmin, async (req, res) => { //PUT ME BACK IN LATER
-  app.get("/api/orders", async (req, res) => {
+  app.get("/api/orders", checkAdmin, async (req, res) => {
+    //PUT ME BACK IN LATER
+    //app.get("/api/orders", async (req, res) => {
     try {
       const allOrders = await Order.find();
       res.send(allOrders);
@@ -55,7 +56,7 @@ module.exports = (app) => {
   });
 
   // Fetch order by id
-  app.get("/api/orders/:id", async (req, res) => {
+  app.get("/api/orders/:id", checkAdmin, async (req, res) => {
     try {
       const orderMatch = await Order.findById(req.params.id).exec();
       res.send(orderMatch);
@@ -66,7 +67,7 @@ module.exports = (app) => {
 
   // Update order by id
   //app.put("/api/orders/:id", checkAdmin, async (req, res) => {
-  app.put("/api/orders/:id", async (req, res) => {
+  app.put("/api/orders/:id", checkAdmin, async (req, res) => {
     var { fullfilled, paid } = req.body;
 
     try {

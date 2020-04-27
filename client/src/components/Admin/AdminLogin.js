@@ -6,29 +6,41 @@ class AdminLogin extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      password: ""
+      password: "",
+      error: false,
     };
   }
 
-  handleInputChange = event => {
+  handleInputChange = (event) => {
     const { value, name } = event.target;
     this.setState({
-      [name]: value
+      [name]: value,
     });
   };
-  onSubmit = event => {
+  onSubmit = (event) => {
     event.preventDefault();
-    //alert(this.state.password);
     adminLogin(JSON.stringify(this.state));
+    this.setState({ error: true });
+  };
+
+  renderError = () => {
+    if (this.state.error) {
+      return (
+        <div className="ui negative message">
+          <div className="header">Incorrect password</div>
+          <p>Please try again</p>
+        </div>
+      );
+    }
   };
 
   render() {
     return (
       <div className="ui container">
         <h1>Admin Login</h1>
-        <div className="ui placeholder segment">
+        <div className="ui placeholder very padded segment">
           <form onSubmit={this.onSubmit}>
-            <div className="ui action input">
+            <div className="ui fluid action input">
               <input
                 type="password"
                 name="password"
@@ -38,8 +50,11 @@ class AdminLogin extends React.Component {
                 onChange={this.handleInputChange}
                 required
               />
-              <input className="ui button" type="submit" value="Login" />
+              <button className="ui button" type="submit">
+                Login
+              </button>
             </div>
+            {this.renderError()}
           </form>
         </div>
       </div>
@@ -52,51 +67,3 @@ function mapStateToProps(state) {
 }
 
 export default connect(mapStateToProps, { adminLogin })(AdminLogin);
-
-/* handleSubmit(pwd) {
-    adminLogin(pwd);
-  }
-
-  //const {password} = this.props
-
-  render() {
-    return (
-      <div className="ui container">
-        <div className="ui placeholder segment">
-          <form onSubmit={() => console.log("hi")}>
-            <Field
-              name="password"
-              component="input"
-              type="text"
-              placeholder="Password"
-              className="ui labeled input"
-            />
-            <button type="submit" className="ui button">
-              Login
-            </button>
-          </form>
-        </div>
-      </div>
-    );
-  }
-}
- */
-/* function mapStateToProps(state) {
-  return { adminLogin: state.adminLogin };
-}
-
-const formWrapper = reduxForm({
-  form: "adminLogin"
-})(AdminLogin);
-
-const selector = formValueSelector("adminLogin");
-
-const SelectingFormValuesForm = connect(state => {
-  // can select values individually
-  const pwd = selector(state, "password");
-  return pwd;
-})(formWrapper);
-
-export default connect(mapStateToProps, { adminLogin })(
-  SelectingFormValuesForm
-); export default AdminLogin;*/
