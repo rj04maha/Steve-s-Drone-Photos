@@ -48,9 +48,7 @@ module.exports = (app) => {
     }
   });
 
-  app.get("/api/orders", checkAdmin, async (req, res) => {
-    //PUT ME BACK IN LATER
-    //app.get("/api/orders", async (req, res) => {
+  app.get("/api/orders", checkAdmin, async (res) => {
     try {
       const allOrders = await Order.find();
       res.send(allOrders);
@@ -70,7 +68,6 @@ module.exports = (app) => {
   });
 
   // Update order by id
-  //app.put("/api/orders/:id", checkAdmin, async (req, res) => {
   app.put("/api/orders/:id", checkAdmin, async (req, res) => {
     var { fullfilled, paid } = req.body;
 
@@ -94,7 +91,6 @@ module.exports = (app) => {
       }
     } catch (err) {
       res.status(422).send("Order cannot be found");
-      //res.send(err.message);
       return;
     }
   });

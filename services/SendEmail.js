@@ -3,7 +3,7 @@ const orderTemplate = require("./emailTemplates/newOrder");
 const keys = require("../config/keys");
 
 module.exports = (order) => {
-  const { firstName, lastName, email } = order;
+  const { firstName, lastName, email, _id } = order;
   var transporter = nodemailer.createTransport({
     host: "smtp.gmail.com",
     port: 465,
@@ -18,7 +18,9 @@ module.exports = (order) => {
     from: "stevebaloghdronephotos@gmail.com",
     to: email,
     bcc: "stevebaloghdronephotos@gmail.com",
-    subject: `New order placed by ${firstName} ${lastName}`,
+    subject: `Order confirmed ${_id.substr(
+      _id.length - 5
+    )} placed by ${firstName} ${lastName}`,
     html: orderTemplate(order),
   };
 

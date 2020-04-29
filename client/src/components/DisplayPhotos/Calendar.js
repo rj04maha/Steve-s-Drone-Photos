@@ -1,10 +1,9 @@
 import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import Flatpickr from "react-flatpickr";
-import "flatpickr/dist/themes/material_green.css";
+import "flatpickr/dist/themes/airbnb.css";
 
 const Calendar = (props) => {
-  //const [date, setDate] = useState(new Date());
   const searchByDateQuery = useSelector((state) => state.searchByDate);
   const { setDate } = props;
 
@@ -31,6 +30,7 @@ const Calendar = (props) => {
           maxDate: "today",
           altInput: true,
           dateFormat: "Y-m-d",
+          disableMobile: "true",
         }}
       />
       <div className="ui small button" onClick={() => clearDate()}>
