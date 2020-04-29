@@ -7,6 +7,7 @@ const FIELDS = [
   { label: "First Name", name: "firstName" },
   { label: "Last Name", name: "lastName" },
   { label: "Email", name: "email" },
+  { label: "Phone Number", name: "phone" },
   { label: "Payment Type", name: "payment" },
   { label: "Note", name: "customerNote" },
 ];

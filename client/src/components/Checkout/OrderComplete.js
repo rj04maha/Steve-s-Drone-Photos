@@ -33,7 +33,7 @@ const OrderComplete = () => {
             <h1>Order #{_id.substr(_id.length - 5)}</h1>
             <h3>Thank you, {firstName}! </h3>
             <p>
-              You will recieve a confirmation email shortly to:
+              You will recieve a confirmation email shortly to:{" "}
               <strong>{email}</strong>
             </p>
             <p>Can't find the email? Check your spam folder.</p>

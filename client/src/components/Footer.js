@@ -1,10 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { useSelector, shallowEqual } from "react-redux";
+import { useSelector } from "react-redux";
 import "./Footer.css";
 
 const Footer = () => {
-  const cart = useSelector(state => state.cart, shallowEqual);
+  const cart = useSelector((state) => state.cart);
   return (
     <>
       <div
@@ -34,7 +34,7 @@ const Footer = () => {
           bottom: "0",
           width: "100%",
           height: "6rem",
-          textAlign: "center"
+          textAlign: "center",
         }}
       >
         <div style={{ paddingTop: "50px" }}></div>

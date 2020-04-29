@@ -6,6 +6,7 @@ const keys = require("../config/keys");
 //const multer = require("../services/mutler");
 const multer = require("multer");
 const path = require("path");
+const Jimp = require("jimp");
 
 cloudinary.config({
   cloud_name: keys.cloudinary_cloud_name,

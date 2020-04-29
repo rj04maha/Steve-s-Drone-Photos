@@ -62,6 +62,5 @@ class App extends React.Component {
     );
   }
 }
-//<Route path="/checkout" exact component={Checkout} />
 
 export default App;
