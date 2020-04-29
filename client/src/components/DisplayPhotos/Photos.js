@@ -164,7 +164,7 @@ const Photos = () => {
           <div className="ui fluid icon input">
             <input
               type="text"
-              placeholder="Search by keyword, title or location"
+              placeholder="Search by location or keywords like 'beach', 'cityline', etc."
               value={search}
               onChange={(e) => updateSearchBar(e)}
             />

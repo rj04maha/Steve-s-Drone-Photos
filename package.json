@@ -35,6 +35,7 @@
     "react-day-picker": "^7.4.8",
     "react-flatpickr": "^3.10.0",
     "react-phone-input-auto-format": "^0.1.0",
+    "react-share": "^4.1.0",
     "react-sticky": "^6.0.3",
     "redux-form": "^8.3.0"
   }
