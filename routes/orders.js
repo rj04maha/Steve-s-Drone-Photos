@@ -10,10 +10,12 @@ module.exports = (app) => {
       firstName,
       lastName,
       email,
+      phone,
       addr1,
       addr2,
-      zip,
+      city,
       state,
+      zip,
       payment,
       total,
       photos,
@@ -24,10 +26,12 @@ module.exports = (app) => {
       firstName,
       lastName,
       email,
+      phone,
       addr1,
       addr2,
-      zip,
+      city,
       state,
+      zip,
       payment,
       total,
       photos,
@@ -37,7 +41,7 @@ module.exports = (app) => {
 
     try {
       const newOrder = await order.save();
-      //SendEmail(newOrder);
+      SendEmail(newOrder);
       res.send(newOrder);
     } catch (err) {
       res.send(err.message);

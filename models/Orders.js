@@ -5,10 +5,12 @@ const orderSchema = new Schema({
   firstName: { type: String, required: true },
   lastName: { type: String, required: true },
   email: { type: String, required: true },
+  phone: { type: String, required: true },
   addr1: String,
   addr2: String,
-  zip: String,
+  city: String,
   state: String,
+  zip: String,
   payment: { type: String, required: true },
   datePlaced: Date,
   photos: { type: Schema.Types.Mixed, required: true }, // change this to object or something else

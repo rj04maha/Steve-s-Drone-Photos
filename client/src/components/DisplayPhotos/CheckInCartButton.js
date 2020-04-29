@@ -9,39 +9,43 @@ class CheckInCartButton extends React.Component {
     return (
       <div>
         {_.has(cart, photo._id) ? (
-          <button
-            className="ui olive tiny right labeled icon button"
+          <div
+            className="ui left labeled tiny button"
             onClick={() => this.props.removeFromCart(photo._id)}
           >
-            IN CART
-            <i className="white big check icon link"></i>
-          </button>
+            <div className="ui olive label">IN CART</div>
+            <div className="ui icon olive button">
+              <i className="ui icon check" />
+            </div>
+          </div>
         ) : (
-          <button
-            className="ui right labeled icon tiny button"
+          <div
+            className="ui left labeled tiny button"
             onClick={() => this.props.addToCart(photo)}
           >
-            ADD TO CART
-            <i className="big plus circle icon link"></i>
-          </button>
+            <div className="ui label">ADD TO CART</div>
+            <div className="ui icon button">
+              <i className="ui icon plus" />
+            </div>
+          </div>
         )}
       </div>
     );
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return { cart: state.cart };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
-    addToCart: photo => {
+    addToCart: (photo) => {
       dispatch(addToCart(photo));
     },
-    removeFromCart: photoId => {
+    removeFromCart: (photoId) => {
       dispatch(removeFromCart(photoId));
-    }
+    },
   };
 };
 

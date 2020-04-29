@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { reduxForm } from "redux-form";
 import SmallPhotoCards from "./SmallPhotoCards";
@@ -14,14 +14,19 @@ const FIELDS = [
 const ADDR_FIELDS = [
   { label: "Address (line 1)", name: "addr1" },
   { label: "Address (line 2)", name: "addr2" },
-  { label: "Zipcode", name: "zip" },
+  { label: "City", name: "city" },
   { label: "State", name: "state" },
+  { label: "Zipcode", name: "zip" },
 ];
 
 var ConfirmOrder = (props) => {
   const { handleSubmit, pristine, previousPage, submitting } = props;
   const formVals = useSelector((state) => state.form.orderForm.values);
   const cart = useSelector((state) => state.cart);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   function showAddress() {
     if (props.isShipping) {

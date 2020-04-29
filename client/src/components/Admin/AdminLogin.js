@@ -11,6 +11,10 @@ class AdminLogin extends React.Component {
     };
   }
 
+  componentDidMount() {
+    window.scrollTo(0, 0);
+  }
+
   handleInputChange = (event) => {
     const { value, name } = event.target;
     this.setState({

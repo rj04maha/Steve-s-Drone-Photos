@@ -28,6 +28,26 @@ const PhotoDetail = (props) => {
     });
   }
 
+  function getDate(date) {
+    const monthNames = [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December",
+    ];
+    const dateSplit = date.split("-");
+    const month = monthNames[Number(dateSplit[1]) - 1];
+    return `${month} ${Number(dateSplit[2])}, ${dateSplit[0]}`;
+  }
+
   if (!isLoading && photo) {
     const { name, source, tags, location, dateTaken } = photo;
     return (
@@ -38,8 +58,13 @@ const PhotoDetail = (props) => {
           </div>
           <div className="column six wide">
             <h1>{name}</h1>
-            <p>{location}</p>
-            <p>{dateTaken}</p>
+            <p>
+              <strong>Location: </strong>
+              {location}
+            </p>
+            <p>
+              <strong>Date Taken: </strong> {getDate(dateTaken)}
+            </p>
             <p>{renderTags(tags)}</p>
             <CheckInCartButton photo={photo}></CheckInCartButton>
             <br />
@@ -53,24 +78,6 @@ const PhotoDetail = (props) => {
         </div>
       </div>
     );
-    /* return (
-      <div className="ui container">
-        <Link to="/photos">
-          <button className="ui labeled icon tiny button">
-            <i className="left arrow icon"></i>
-            ALL PHOTOS
-          </button>
-        </Link>
-        <div style={{ float: "right" }}>
-          <CheckInCartButton photo={photo}></CheckInCartButton>
-        </div>
-        <img className="ui centered large image" src={source} alt={name}></img>
-        <div style={{ textAlign: "center" }}>
-          <h3>{name}</h3>
-          <p>Tags: {tags}</p>
-        </div>
-      </div>
-    ); */
   } else {
     return (
       <div className="ui active inverted dimmer">

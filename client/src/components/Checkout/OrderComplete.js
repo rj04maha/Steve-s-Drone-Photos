@@ -3,19 +3,19 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 const OrderComplete = () => {
-  const photos = useSelector((state) => state.submitOrder);
+  const order = useSelector((state) => state.submitOrder);
 
-  console.log(photos);
-  if (photos) {
+  if (order) {
+    const { firstName, lastName, _id, email } = order;
     return (
       <div className="ui container space">
         <h2 className="ui huge header">
-          Thank you, {photos.firstName} {photos.lastName}!
+          Thank you, {firstName} {lastName}!
         </h2>
-        <h3>Order #{photos._id}</h3>
+        <h3>Order #{_id.substr(_id.length - 5)}</h3>
         <p>Please keep your order number for your records.</p>
         <p>
-          Please check your email address: <strong>{photos.email}</strong> for
+          Please check your email address: <strong>{email}</strong> for
           confirmation and payment instructions.
         </p>
       </div>

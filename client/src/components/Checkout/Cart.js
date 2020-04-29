@@ -10,6 +10,7 @@ const Cart = (props) => {
 
   useEffect(() => {
     setPhotos(Object.values(cart));
+    window.scrollTo(0, 0);
   }, [cart]);
 
   if (Object.keys(photos).length > 0) {

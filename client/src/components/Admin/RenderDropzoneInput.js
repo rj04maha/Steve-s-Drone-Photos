@@ -11,22 +11,22 @@ const baseStyle = {
   backgroundColor: "#fafafa",
   color: "#bdbdbd",
   outline: "none",
-  transition: "border .24s ease-in-out"
+  transition: "border .24s ease-in-out",
 };
 
 const activeStyle = {
-  borderColor: "#2196f3"
+  borderColor: "#2196f3",
 };
 
 const acceptStyle = {
-  borderColor: "#00e676"
+  borderColor: "#00e676",
 };
 
 const rejectStyle = {
-  borderColor: "#ff1744"
+  borderColor: "#ff1744",
 };
 
-const RenderDropzoneInput = ({ input, meta, label, onChangeInput }) => {
+const RenderDropzoneInput = ({ input, meta, onChangeInput }) => {
   const [files, setFile] = useState([]);
   const [err, setErr] = useState([]);
 
@@ -35,19 +35,19 @@ const RenderDropzoneInput = ({ input, meta, label, onChangeInput }) => {
     getInputProps,
     isDragActive,
     isDragAccept,
-    isDragReject
+    isDragReject,
   } = useDropzone({
     accept: "image/*",
     multiple: false,
     //maxSize: 10000000,
-    onDrop: acceptedFiles => {
+    onDrop: (acceptedFiles) => {
       const isFileValid = acceptedFiles[0].size <= 10000000;
       setErr(isFileValid);
       if (isFileValid) {
         setFile(
-          acceptedFiles.map(file =>
+          acceptedFiles.map((file) =>
             Object.assign(file, {
-              preview: URL.createObjectURL(file)
+              preview: URL.createObjectURL(file),
             })
           )
         );
@@ -71,7 +71,7 @@ const RenderDropzoneInput = ({ input, meta, label, onChangeInput }) => {
       } else {
         acceptedFiles[0] = null;
       }
-    }
+    },
   });
 
   const style = useMemo(
@@ -79,21 +79,21 @@ const RenderDropzoneInput = ({ input, meta, label, onChangeInput }) => {
       ...baseStyle,
       ...(isDragActive ? activeStyle : {}),
       ...(isDragAccept ? acceptStyle : {}),
-      ...(isDragReject ? rejectStyle : {})
+      ...(isDragReject ? rejectStyle : {}),
     }),
     [isDragActive, isDragReject, isDragAccept]
   );
 
-  const pic = files.map(file => (
+  const pic = files.map((file) => (
     <div key={file.name}>
-      <img src={file.preview} alt={file.name} className="ui image" />
+      <img src={file.preview} alt={file.name} className="ui medium image" />
     </div>
   ));
 
   useEffect(
     () => () => {
       // Make sure to revoke the data uris to avoid memory leaks
-      files.forEach(file => URL.revokeObjectURL(file.preview));
+      files.forEach((file) => URL.revokeObjectURL(file.preview));
     },
     [files]
   );

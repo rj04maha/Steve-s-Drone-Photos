@@ -12,6 +12,7 @@ const OrderTable = (props) => {
           <td data-label="Date">
             {new Date(order.datePlaced).toLocaleDateString()}
           </td>
+          <td data-label="Id">{order._id.substr(order._id.length - 5)}</td>
           <td data-label="Payment">{order.payment}</td>
           <td data-label="Total">${order.total}.00</td>
           <td data-label="View">
@@ -31,6 +32,7 @@ const OrderTable = (props) => {
           <tr>
             <th>Name</th>
             <th>Date Placed</th>
+            <th>Order ID</th>
             <th>Payment Type</th>
             <th>Total</th>
             <th>View</th>

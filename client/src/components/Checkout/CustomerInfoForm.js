@@ -4,11 +4,13 @@ import renderInput from "./RenderInput";
 import Sidebar from "./Sidebar";
 import RenderStateInput from "./RenderStateInput";
 import RenderPayment from "./RenderPayment";
+import RenderPhoneInput from "./RenderPhoneInput";
 
 class CustomerInfoForm extends React.Component {
   componentDidMount() {
     window.scrollTo(0, 0);
   }
+
   render() {
     const { handleSubmit, previousPage } = this.props;
 
@@ -46,18 +48,16 @@ class CustomerInfoForm extends React.Component {
               />
             </div>
 
-            <div className="two fields">
+            <div className="three fields">
+              <div className="field">
+                <Field name="city" component={renderInput} label="City" />
+              </div>
               <div className="field">
                 <label>State</label>
                 <Field name="state" component={RenderStateInput} />
               </div>
               <div className="field">
-                <Field
-                  name="zip"
-                  component={renderInput}
-                  label="Zipcode"
-                  max="5"
-                />
+                <Field name="zip" component={renderInput} label="Zipcode" />
               </div>
             </div>
           </>
@@ -89,6 +89,14 @@ class CustomerInfoForm extends React.Component {
 
                 <div className="field">
                   <Field name="email" component={renderInput} label="Email" />
+                </div>
+                <div className="field">
+                  <label>Phone Number</label>
+                  <Field
+                    name="phone"
+                    component={RenderPhoneInput}
+                    label="Phone Number"
+                  />
                 </div>
               </div>
               {getShipping(isShipping)}
@@ -138,8 +146,20 @@ const validate = (formValues) => {
     errors.email = "Invalid email address";
   }
 
+  if (
+    !/^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/.test(
+      formValues.phone
+    ) ||
+    !formValues.phone
+  ) {
+    errors.phone = "Please enter your phone number";
+  }
+
   if (!formValues.addr1) {
     errors.addr1 = "Please enter your address";
+  }
+  if (!formValues.city) {
+    errors.city = "Please enter your city";
   }
   if (!formValues.state) {
     errors.state = "Please enter your state";

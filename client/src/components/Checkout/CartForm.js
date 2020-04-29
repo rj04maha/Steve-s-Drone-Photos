@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import {
   Field,
@@ -14,6 +14,10 @@ import CalculateTotal from "./CalculateTotal";
 
 let CartForm = (props) => {
   const [isEnabled, setIsEnabled] = useState(true);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   const { getValues } = props;
   var totals = CalculateTotal(getValues);
@@ -80,37 +84,54 @@ let CartForm = (props) => {
     <form className="ui form" onSubmit={props.handleSubmit(onSubmit)}>
       <div className="ui grid stackable">
         <div className="ten wide column">
-          <table className="ui very basic celled table">
+          <table className="ui very basic table">
+            <thead>
+              <tr>
+                <th>Type</th>
+                <th>Price</th>
+                <th>Delivery</th>
+              </tr>
+            </thead>
             <tbody>
               <tr>
-                <th>Prices</th>
-                <th>
-                  <div className="ui divided list">
-                    <div className="item">
-                      <div className="ui horizontal label">Digital</div>
-                      $10.00
-                    </div>
-                    <div className="item">
-                      <div className="ui horizontal label">13" x 19"</div>
-                      $15.00
-                    </div>
-                    <div className="item">
-                      <div className="ui horizontal label">11" x 14"</div>
-                      $20.00
-                    </div>
-                  </div>
-                </th>
+                <td>
+                  <div className="ui label">Digital</div>
+                </td>
+                <td>
+                  <strong>$10.00</strong>
+                </td>
+                <td>
+                  You will recieve a high quality image via email within 5-10
+                  business days
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <div className="ui label">13" x 19"</div>
+                </td>
+                <td>
+                  <strong>$15.00</strong>
+                </td>
+                <td>
+                  Printed on glossy paper and will be mailed to the address
+                  provided
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <div className="ui label">11" x 14"</div>
+                </td>
+                <td>
+                  <strong>$20.00</strong>
+                </td>
+                <td>
+                  Printed on glossy paper and will be mailed to the address
+                  provided
+                </td>
               </tr>
             </tbody>
           </table>
 
-          <p>
-            Please select the quantity of the photo(s) you would like to order.
-            11" x 14" and 13" x 19" are printed on glossy paper and will be
-            mailed to the address provided. If you opt for a digital copy of the
-            photo, you will recieve a high quality image via email within 5-10
-            business days.
-          </p>
           <div className="ui divider"></div>
           <div className="ui relaxed divided list">
             {cart.map((image) => (
@@ -153,7 +174,7 @@ let CartForm = (props) => {
                       </Field>
                     </div>
                     <div className="inline field">
-                      <label>13" x 19" Qty</label>
+                      <label>13" x 19"</label>
                       <Field
                         name={`photos.${image._id}.copy13x19`}
                         label='13" x 19"'
@@ -173,7 +194,7 @@ let CartForm = (props) => {
                       </Field>
                     </div>
                     <div className="inline field">
-                      <label>11" x 14" Qty</label>
+                      <label>11" x 14"</label>
                       <Field
                         name={`photos.${image._id}.copy11x14`}
                         label='11" x 14"'

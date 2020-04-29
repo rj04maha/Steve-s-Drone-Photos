@@ -8,6 +8,7 @@ import {
   clearSearch,
   clearSearchByDate,
 } from "../../actions";
+import Calendar from "./Calendar";
 
 const imageGrid = {
   display: "grid",
@@ -21,6 +22,8 @@ const Photos = () => {
   //const [isLoading, setIsLoading] = useState(true);
   const [search, setSearch] = useState("");
   const [searchByDate, setSearchByDate] = useState("");
+  const [date, setDate] = useState(new Date());
+
   const photos = useSelector(
     (state) => Object.values(state.photos),
     shallowEqual
@@ -49,6 +52,25 @@ const Photos = () => {
     setSearchByDate("");
     setSearch(e.target.value.substr(0, 30));
     dispatch(updateSearch(e.target.value.substr(0, 30)));
+    setDate(new Date());
+  }
+
+  function getDate(date) {
+    var mm = date.getMonth() + 1; // getMonth() is zero-based
+    var dd = date.getDate();
+
+    return [
+      (mm > 9 ? "" : "0") + mm,
+      (dd > 9 ? "" : "0") + dd,
+      date.getFullYear(),
+    ].join("/");
+  }
+
+  function getDate2(date) {
+    var mm = date.substr(5, 2);
+    var dd = date.substr(8, 2);
+    var yy = date.substr(0, 4);
+    return [mm, dd, yy].join("/");
   }
 
   function returnSearch(photo) {
@@ -64,8 +86,29 @@ const Photos = () => {
 
     let checkSearch =
       checkTitle || checkLocation || checkTags.some((tag) => tag === true);
-    if (photo.dateTaken === searchByDate) {
-      return true;
+
+    if (searchByDate.length === 1) {
+      const date = getDate(searchByDate[0]);
+      if (getDate2(photo.dateTaken) === date) {
+        return true;
+      }
+    }
+    if (searchByDate.length === 2) {
+      const dateFrom = getDate(searchByDate[0]);
+      const dateTo = getDate(searchByDate[1]);
+      const dateCheck = getDate2(photo.dateTaken);
+
+      var d1 = dateFrom.split("/");
+      var d2 = dateTo.split("/");
+      var c = dateCheck.split("/");
+
+      var from = new Date(d1);
+      var to = new Date(d2);
+      var check = new Date(c);
+
+      if (check >= from && check <= to) {
+        return true;
+      }
     }
 
     if (searchByDate) {
@@ -75,11 +118,11 @@ const Photos = () => {
     return checkSearch;
   }
 
-  function updateCalendar(e) {
+  function updateCalendar(date) {
     dispatch(clearSearch());
     setSearch("");
-    setSearchByDate(e.target.value);
-    dispatch(updateSearchByDate(e.target.value));
+    setSearchByDate(date);
+    dispatch(updateSearchByDate(date));
   }
 
   function clearSearches() {
@@ -87,6 +130,7 @@ const Photos = () => {
     setSearch("");
     dispatch(clearSearchByDate());
     setSearchByDate("");
+    setDate(new Date());
   }
 
   function renderGrid() {
@@ -116,11 +160,11 @@ const Photos = () => {
   return (
     <div className="ui container" style={{ paddingTop: "1em" }}>
       <div className="ui stackable grid">
-        <div className="nine wide column">
+        <div className="six wide column">
           <div className="ui fluid icon input">
             <input
               type="text"
-              placeholder="Search by keyword..."
+              placeholder="Search by keyword, title or location"
               value={search}
               onChange={(e) => updateSearchBar(e)}
             />
@@ -128,17 +172,18 @@ const Photos = () => {
           </div>
         </div>
 
-        <div className="four wide column">
-          <div className="ui fluid icon input" style={{ height: "2.65em" }}>
-            <input
-              type="date"
-              value={searchByDate}
-              onChange={(e) => updateCalendar(e)}
-            />
+        <div className="six wide column">
+          <div className="ui fluid left icon right action input">
             <i className="calendar icon" />
+            <Calendar
+              updateCalendar={updateCalendar}
+              clear={clearSearches}
+              date={date}
+              setDate={setDate}
+            />
           </div>
         </div>
-        <div className="three wide column">
+        <div className="four wide column">
           <button
             className="ui fluid red basic button"
             onClick={() => clearSearches()}

@@ -10,10 +10,10 @@ class PhotoAdd extends React.Component {
   state = {
     initialValueName: null,
     initialValueDate: null,
-    initialValueImage: null
+    initialValueImage: null,
   };
 
-  onSubmit = formValues => {
+  onSubmit = (formValues) => {
     let formData = new FormData();
     formData.append("image", formValues.image, formValues.image.name);
     formData.append("name", formValues.name);
@@ -27,7 +27,7 @@ class PhotoAdd extends React.Component {
     this.setState({
       initialValueName: n,
       initialValueDate: d,
-      initialValueImage: i
+      initialValueImage: i,
     });
   };
 
@@ -40,14 +40,13 @@ class PhotoAdd extends React.Component {
           </button>
         </Link>
         <h1>Add a photo</h1>
-        <p>*Only one photo at a time*</p>
         <PhotoForm
           onSubmit={this.onSubmit}
           button="Upload"
           initialValues={{
             name: this.state.initialValueName,
             dateTaken: this.state.initialValueDate,
-            image: this.state.initialValueImage
+            image: this.state.initialValueImage,
           }}
           img={
             <Field

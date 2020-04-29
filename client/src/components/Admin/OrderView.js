@@ -11,8 +11,9 @@ const FIELDS = [
   { label: "Email", name: "email" },
   { label: "Address (line 1)", name: "addr1" },
   { label: "Address (line 2)", name: "addr2" },
-  { label: "Zipcode", name: "zip" },
+  { label: "City", name: "city" },
   { label: "State", name: "state" },
+  { label: "Zipcode", name: "zip" },
   { label: "Payment Type", name: "payment" },
   { label: "Note/Message (optional)", name: "customerNote" },
 ];
@@ -70,7 +71,7 @@ const OrderView = (props) => {
         <table className="ui celled table">
           <thead>
             <tr>
-              <th colSpan="2">Order # {_id}</th>
+              <th colSpan="2">Order # {_id.substr(_id.length - 5)}</th>
             </tr>
           </thead>
           <tbody>

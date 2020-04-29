@@ -94,7 +94,7 @@ export const adminLogin = async (password) => {
       "Content-Type": "application/json",
     },
   };
-  const res = await axios.post("/api/adminLogin", password, config);
+  await axios.post("/api/adminLogin", password, config);
   history.push("/admin");
 };
 
