@@ -3,6 +3,9 @@ import { Link } from "react-router-dom";
 import OrderList from "./OrderList";
 
 class AdminDashboard extends React.Component {
+  componentDidMount() {
+    window.scrollTo(0, 0);
+  }
   render() {
     return (
       <div className="ui container" style={{ paddingTop: "1em" }}>

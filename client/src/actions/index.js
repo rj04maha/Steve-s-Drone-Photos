@@ -1,5 +1,6 @@
 import axios from "axios";
 import history from "../history";
+import { unregisterField, change } from "redux-form";
 
 /* Photo actions */
 
@@ -47,13 +48,15 @@ export const addToCart = (photo) => {
   };
 };
 
-export const removeFromCart = (photoId) => {
-  return {
-    type: "REMOVE_FROM_CART",
-    payload: {
-      photoId: photoId,
-    },
-  };
+export const removeFromCart = (photoId) => async (dispatch) => {
+  dispatch(unregisterField("orderForm", `photos.${photoId}.digital`));
+  dispatch(unregisterField("orderForm", `photos.${photoId}.copy13x19`));
+  dispatch(unregisterField("orderForm", `photos.${photoId}.copy11x14`));
+  dispatch(change("orderForm", `photos.${photoId}.digital`, ""));
+  dispatch(change("orderForm", `photos.${photoId}.copy13x19`, ""));
+  dispatch(change("orderForm", `photos.${photoId}.copy11x14`, ""));
+
+  dispatch({ type: "REMOVE_FROM_CART", payload: photoId });
 };
 
 /* Order actions */

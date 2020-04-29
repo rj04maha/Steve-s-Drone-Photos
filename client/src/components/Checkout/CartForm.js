@@ -30,12 +30,6 @@ let CartForm = (props) => {
   function removeItem(id) {
     setIsEnabled(false);
     dispatch(props.removeFromCart(id));
-    dispatch(unregisterField("orderForm", `photos.${id}.digital`));
-    dispatch(unregisterField("orderForm", `photos.${id}.copy13x19`));
-    dispatch(unregisterField("orderForm", `photos.${id}.copy11x14`));
-    dispatch(change("orderForm", `photos.${id}.digital`, ""));
-    dispatch(change("orderForm", `photos.${id}.copy13x19`, ""));
-    dispatch(change("orderForm", `photos.${id}.copy11x14`, ""));
     setIsEnabled(true);
   }
 

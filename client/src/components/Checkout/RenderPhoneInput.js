@@ -11,7 +11,11 @@ const renderPhoneInput = ({ input, meta, onChangeInput }) => {
   const className = `field ${meta.error && meta.touched ? "error" : ""}`;
   return (
     <div className={className}>
-      <PhoneInput {...input} onChange={onChangeInput} />
+      <PhoneInput
+        {...input}
+        onChange={onChangeInput}
+        placeholder="Phone Number"
+      />
 
       {renderError(meta)}
     </div>
