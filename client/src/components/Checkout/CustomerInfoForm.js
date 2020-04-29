@@ -4,7 +4,7 @@ import renderInput from "./RenderInput";
 import Sidebar from "./Sidebar";
 import RenderStateInput from "./RenderStateInput";
 import RenderPayment from "./RenderPayment";
-import RenderPhoneInput from "./RenderPhoneInput";
+import normalizePhone from "./normalizePhone";
 
 class CustomerInfoForm extends React.Component {
   componentDidMount() {
@@ -91,11 +91,11 @@ class CustomerInfoForm extends React.Component {
                   <Field name="email" component={renderInput} label="Email" />
                 </div>
                 <div className="field">
-                  <label>Phone Number</label>
                   <Field
                     name="phone"
-                    component={RenderPhoneInput}
+                    component={renderInput}
                     label="Phone Number"
+                    normalize={normalizePhone}
                   />
                 </div>
               </div>
