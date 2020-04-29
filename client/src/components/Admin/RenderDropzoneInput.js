@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useMemo } from "react";
 import { useDropzone } from "react-dropzone";
+import Jimp from "jimp";
 
 const baseStyle = {
   alignItems: "center",
@@ -39,38 +40,34 @@ const RenderDropzoneInput = ({ input, meta, onChangeInput }) => {
   } = useDropzone({
     accept: "image/*",
     multiple: false,
-    //maxSize: 10000000,
     onDrop: (acceptedFiles) => {
-      const isFileValid = acceptedFiles[0].size <= 10000000;
-      setErr(isFileValid);
-      if (isFileValid) {
-        setFile(
-          acceptedFiles.map((file) =>
-            Object.assign(file, {
-              preview: URL.createObjectURL(file),
-            })
-          )
-        );
-        input.onChange(acceptedFiles[0]);
+      setFile(
+        acceptedFiles.map((file) =>
+          Object.assign(file, {
+            preview: URL.createObjectURL(file),
+          })
+        )
+      );
+      input.onChange(acceptedFiles[0]);
 
-        const dt = new Date(acceptedFiles[0].lastModifiedDate);
-        var mm = dt.getMonth() + 1;
-        var dd = dt.getDate();
-        var yyyy = dt.getFullYear();
-        if (mm < 10) {
-          mm = "0" + mm;
-        }
-        if (dd < 10) {
-          dd = "0" + dd;
-        }
-        var newDate = yyyy + "-" + mm + "-" + dd;
-
-        input.onChange(
-          onChangeInput(acceptedFiles[0].name, newDate, acceptedFiles[0])
-        );
-      } else {
-        acceptedFiles[0] = null;
+      const dt = new Date(acceptedFiles[0].lastModifiedDate);
+      var mm = dt.getMonth() + 1;
+      var dd = dt.getDate();
+      var yyyy = dt.getFullYear();
+      if (mm < 10) {
+        mm = "0" + mm;
       }
+      if (dd < 10) {
+        dd = "0" + dd;
+      }
+      var newDate = yyyy + "-" + mm + "-" + dd;
+
+      input.onChange(
+        onChangeInput(acceptedFiles[0].name, newDate, acceptedFiles[0])
+      );
+      //} else {
+      //acceptedFiles[0] = null;
+      //}
     },
   });
 

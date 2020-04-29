@@ -48,7 +48,7 @@ module.exports = (app) => {
     }
   });
 
-  app.get("/api/orders", checkAdmin, async (res) => {
+  app.get("/api/orders", checkAdmin, async (req, res) => {
     try {
       const allOrders = await Order.find();
       res.send(allOrders);
@@ -91,6 +91,7 @@ module.exports = (app) => {
       }
     } catch (err) {
       res.status(422).send("Order cannot be found");
+      //res.send(err.message);
       return;
     }
   });

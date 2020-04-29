@@ -15,7 +15,7 @@ cloudinary.config({
 });
 
 var date = Date.now();
-//  destination: "./public/uploads/",
+//
 
 const storage = multer.diskStorage({
   filename: function (req, file, cb) {
@@ -34,6 +34,13 @@ module.exports = (app) => {
       tags = req.body["tags"];
       location = req.body["location"];
       dateTaken = req.body["dateTaken"];
+      //const imagePath = req.file.path;
+
+      if (req.file.size >= 10000000) {
+        const image = await Jimp.read(req.file.path);
+        await image.resize(1600, Jimp.AUTO);
+        await image.writeAsync(req.file.path);
+      }
 
       const result = await cloudinary.uploader.upload(req.file.path, {
         public_id: name,

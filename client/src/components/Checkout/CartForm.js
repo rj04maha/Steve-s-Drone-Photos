@@ -1,12 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import {
-  Field,
-  reduxForm,
-  unregisterField,
-  formValueSelector,
-  change,
-} from "redux-form";
+import { Field, reduxForm, formValueSelector } from "redux-form";
 import { useDispatch, connect } from "react-redux";
 import _ from "lodash";
 import Sidebar from "./Sidebar";
