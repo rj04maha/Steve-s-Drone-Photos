@@ -34,7 +34,6 @@ const Photos = () => {
   const searchByDateQuery = useSelector((state) => state.searchByDate);
 
   useEffect(() => {
-    window.scrollTo(0, 0);
     const fetchData = async () => {
       dispatch(fetchPhotos());
     };

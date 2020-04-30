@@ -11,6 +11,7 @@ const PhotoDetail = (props) => {
   const photo = useSelector((state) => state.photos[photoId], shallowEqual);
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     const fetchData = async () => {
       dispatch(fetchPhoto(photoId));
       setIsLoading(false);
@@ -53,11 +54,11 @@ const PhotoDetail = (props) => {
     return (
       <div className="ui container" style={{ paddingTop: "1em" }}>
         <div className="ui stackable two column grid">
-          <div className="column ten wide">
+          <div className="column">
             <img className="ui centered large image" src={source} alt={name} />
           </div>
-          <div className="column six wide">
-            <h1>{name}</h1>
+          <div className="column">
+            <h1 style={{ paddingTop: "2em" }}>{name}</h1>
             <p>
               <strong>Location: </strong>
               {location}
