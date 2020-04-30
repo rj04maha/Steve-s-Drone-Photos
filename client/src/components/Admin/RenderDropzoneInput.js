@@ -1,6 +1,5 @@
 import React, { useEffect, useState, useMemo } from "react";
 import { useDropzone } from "react-dropzone";
-import Jimp from "jimp";
 
 const baseStyle = {
   alignItems: "center",
@@ -29,7 +28,6 @@ const rejectStyle = {
 
 const RenderDropzoneInput = ({ input, meta, onChangeInput }) => {
   const [files, setFile] = useState([]);
-  const [err, setErr] = useState([]);
 
   const {
     getRootProps,
@@ -95,26 +93,12 @@ const RenderDropzoneInput = ({ input, meta, onChangeInput }) => {
     [files]
   );
 
-  const renderError = ({ error, touched }) => {
-    if (!err) {
-      return (
-        <div style={{ color: "red" }}>
-          File size too big, must be under 10MB / 10000KB / .01GB
-        </div>
-      );
-    }
-    if (touched && error) {
-      return <div style={{ color: "red" }}>{error}</div>;
-    }
-  };
-
   return (
     <div className="ui stackable two column grid">
       <div className="column">
         <div {...getRootProps({ className: "dropzone", style })}>
           <input {...getInputProps()} type="file" name="image" />
           <p>Drag 'n' drop photo here, or click to select photo</p>
-          {renderError(meta)}
         </div>
       </div>
       <div className="column">{pic}</div>

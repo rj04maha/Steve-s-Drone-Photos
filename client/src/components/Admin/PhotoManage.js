@@ -14,9 +14,9 @@ const PhotoManage = () => {
   useEffect(() => {
     const fetchData = async () => {
       dispatch(fetchPhotos());
-      setIsLoading(false);
     };
     fetchData();
+    setIsLoading(false);
   }, [dispatch]);
 
   function renderTags(tags) {
@@ -76,7 +76,7 @@ const PhotoManage = () => {
       </div>
     );
   }
-  if (Object.keys(photos).length === 0) {
+  if (Object.keys(photos).length === 0 && isLoading) {
     return (
       <div className="ui container">
         <Link to="/admin">

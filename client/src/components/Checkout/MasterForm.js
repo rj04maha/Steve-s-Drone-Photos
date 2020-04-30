@@ -16,7 +16,6 @@ const MasterForm = (props) => {
 
   function onSubmitFunction(formValues) {
     formValues.total = total;
-    console.log(formValues);
     props.submitOrder(formValues).then(() => {
       dispatch(reset("orderForm"));
     });

@@ -18,9 +18,7 @@ module.exports = (order) => {
     from: "stevebaloghdronephotos@gmail.com",
     to: email,
     bcc: "stevebaloghdronephotos@gmail.com",
-    subject: `Order confirmed ${_id.substr(
-      _id.length - 5
-    )} placed by ${firstName} ${lastName}`,
+    subject: `Order confirmed, placed by ${firstName} ${lastName}`,
     html: orderTemplate(order),
   };
 

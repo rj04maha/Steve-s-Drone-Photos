@@ -13,7 +13,7 @@ const orderSchema = new Schema({
   zip: String,
   payment: { type: String, required: true },
   datePlaced: Date,
-  photos: { type: Schema.Types.Mixed, required: true }, // change this to object or something else
+  photos: { type: Schema.Types.Mixed, required: true },
   customerNote: String,
   total: { type: Number, required: true },
   //adminNote: String,

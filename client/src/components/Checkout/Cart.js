@@ -16,7 +16,7 @@ const Cart = (props) => {
   if (Object.keys(photos).length > 0) {
     return (
       <div className="ui container">
-        <h1>Cart</h1>
+        <h1>Prices</h1>
         <CartForm
           key={photos}
           photos={photos}

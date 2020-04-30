@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import Flatpickr from "react-flatpickr";
-import "flatpickr/dist/themes/airbnb.css";
+import "flatpickr/dist/themes/material_blue.css";
 
 const Calendar = (props) => {
   const searchByDateQuery = useSelector((state) => state.searchByDate);

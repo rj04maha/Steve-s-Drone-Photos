@@ -120,88 +120,99 @@ let CartForm = (props) => {
             </tbody>
           </table>
 
+          <h1>Your Cart</h1>
+
           <div className="ui divider"></div>
-          <div className="ui relaxed divided list">
+          <div className="ui divided items">
             {cart.map((image) => (
               <div className="item" key={image._id} style={{ padding: "1em" }}>
-                <div className="right floated content">
+                <div className="image">
+                  <img
+                    className="ui tiny image"
+                    alt={image.name}
+                    src={image.source}
+                  />
+                </div>
+
+                <div className="content">
+                  <div className="header">{image.name}</div>
+                  <div className="meta">
+                    <span>{image.location}</span>
+                  </div>
+                  <div className="description">
+                    <div>
+                      <div className="equal width fields">
+                        <div className="field">
+                          <label>Digital Copy</label>
+                          <Field
+                            name={`photos.${image._id}.digital`}
+                            type="text"
+                            component="select"
+                            label="Digital"
+                          >
+                            <option />
+                            <option value="yes">1 - $10 </option>
+                          </Field>
+                        </div>
+                        <div className="field">
+                          <label>13" x 19"</label>
+                          <Field
+                            name={`photos.${image._id}.copy13x19`}
+                            label='13" x 19"'
+                            component="select"
+                          >
+                            <option />
+                            <option value="1">1 - $15 each</option>
+                            <option value="2">2 - $30</option>
+                            <option value="3">3 - $45</option>
+                            <option value="4">4 - $60</option>
+                            <option value="5">5 - $75</option>
+                            <option value="6">6 - $90</option>
+                            <option value="7">7 - $105</option>
+                            <option value="8">8 - $120</option>
+                            <option value="9">9 - $135</option>
+                            <option value="10">10 - $150</option>
+                          </Field>
+                        </div>
+                        <div className="field">
+                          <label>11" x 14"</label>
+                          <Field
+                            name={`photos.${image._id}.copy11x14`}
+                            label='11" x 14"'
+                            component="select"
+                          >
+                            <option />
+                            <option value="1">1 - $20 each</option>
+                            <option value="2">2 - $40</option>
+                            <option value="3">3 - $60</option>
+                            <option value="4">4 - $80</option>
+                            <option value="5">5 - $100</option>
+                            <option value="6">6 - $120</option>
+                            <option value="7">7 - $140</option>
+                            <option value="8">8 - $160</option>
+                            <option value="9">9 - $180</option>
+                            <option value="10">10 - $200</option>
+                          </Field>
+                        </div>
+                      </div>
+                    </div>
+                    <Field name={image._id} component={renderError} />
+                  </div>
+                  <div className="extra">
+                    <div
+                      onClick={() => removeItem(image._id)}
+                      style={{ textDecoration: "underline", cursor: "pointer" }}
+                    >
+                      Remove from cart
+                    </div>
+                  </div>
+                </div>
+                <div className="ui right floated content">
                   {totals
                     ? totals[image._id]
                       ? `$${totals[image._id]}.00`
                       : "$0.00"
                     : "$0.00"}
-                  <i
-                    onClick={() => removeItem(image._id)}
-                    className="trash alternate link icon"
-                  />
-                </div>
-
-                <img
-                  className="ui tiny image"
-                  alt={image.name}
-                  src={image.source}
-                />
-
-                <div className="content">
-                  <div className="header">{image.name}</div>
-                  <div className="description">{image.location}</div>
-                </div>
-                <Field name={image._id} component={renderError} />
-                <div>
-                  <div className="three fields">
-                    <div className="inline field">
-                      <label>Digital Copy</label>
-                      <Field
-                        name={`photos.${image._id}.digital`}
-                        type="text"
-                        component="select"
-                        label="Digital"
-                      >
-                        <option />
-                        <option value="yes">1 - $10 </option>
-                      </Field>
-                    </div>
-                    <div className="inline field">
-                      <label>13" x 19"</label>
-                      <Field
-                        name={`photos.${image._id}.copy13x19`}
-                        label='13" x 19"'
-                        component="select"
-                      >
-                        <option />
-                        <option value="1">1 - $15 each</option>
-                        <option value="2">2 - $30</option>
-                        <option value="3">3 - $45</option>
-                        <option value="4">4 - $60</option>
-                        <option value="5">5 - $75</option>
-                        <option value="6">6 - $90</option>
-                        <option value="7">7 - $105</option>
-                        <option value="8">8 - $120</option>
-                        <option value="9">9 - $135</option>
-                        <option value="10">10 - $150</option>
-                      </Field>
-                    </div>
-                    <div className="inline field">
-                      <label>11" x 14"</label>
-                      <Field
-                        name={`photos.${image._id}.copy11x14`}
-                        label='11" x 14"'
-                        component="select"
-                      >
-                        <option />
-                        <option value="1">1 - $20 each</option>
-                        <option value="2">2 - $40</option>
-                        <option value="3">3 - $60</option>
-                        <option value="4">4 - $80</option>
-                        <option value="5">5 - $100</option>
-                        <option value="6">6 - $120</option>
-                        <option value="7">7 - $140</option>
-                        <option value="8">8 - $160</option>
-                        <option value="9">9 - $180</option>
-                        <option value="10">10 - $200</option>
-                      </Field>
-                    </div>
-                  </div>
                 </div>
               </div>
             ))}

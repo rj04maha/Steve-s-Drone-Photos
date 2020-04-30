@@ -43,16 +43,27 @@ const OrderTable = (props) => {
     );
   }
 
-  return (
-    <div>
+  if (!props.isLoading && props.arr.length > 0) {
+    return (
       <div className="ui segment">
         <h3>{props.title}</h3>
-        {props.alert}
-
-        {props.arr.length > 0 ? renderTableHeader() : "No orders to show"}
+        {renderTableHeader()}
       </div>
-    </div>
-  );
+    );
+  } else if (props.loading && props.arr.length === 0) {
+    return (
+      <div className="ui segment">
+        <h3>{props.title}</h3>
+        No orders to show
+      </div>
+    );
+  } else {
+    return (
+      <div className="ui active inverted dimmer">
+        <div className="ui text loader">Loading</div>
+      </div>
+    );
+  }
 };
 
 export default OrderTable;

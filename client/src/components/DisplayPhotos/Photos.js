@@ -193,9 +193,7 @@ const Photos = () => {
         </div>
       </div>
 
-      <div className="image-list" style={imageGrid}>
-        {renderGrid()}
-      </div>
+      <div style={imageGrid}>{renderGrid()}</div>
     </div>
   );
 };

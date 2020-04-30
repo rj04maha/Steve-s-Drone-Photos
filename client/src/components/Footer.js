@@ -51,8 +51,7 @@ const Footer = () => {
 
               <div className="column">
                 <div className="item">
-                  For technical support, please contact Rachael Mahar at:
-                  rachaelmahar9497@gmail.com
+                  For questions or help email stevebaloghdronephotos@gmail.com
                 </div>
                 <div>
                   <Link to="/admin">Admin Access</Link>

@@ -5,9 +5,9 @@ import Modal from "../Modal";
 import history from "../../history";
 import { fetchPhoto, deletePhoto } from "../../actions";
 
-const PhotoDelete = props => {
+const PhotoDelete = (props) => {
   const photo = useSelector(
-    state => state.photos[props.match.params.id],
+    (state) => state.photos[props.match.params.id],
     shallowEqual
   );
   const dispatch = useDispatch();

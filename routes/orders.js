@@ -41,9 +41,10 @@ module.exports = (app) => {
 
     try {
       const newOrder = await order.save();
-      SendEmail(newOrder);
+      await SendEmail(newOrder);
       res.send(newOrder);
     } catch (err) {
+      console.log(err);
       res.send(err.message);
     }
   });

@@ -14,14 +14,14 @@ const Home = () => {
         <div className="centered">
           <div className="big">Check out Steve Balogh's Drone Photos</div>
           <Link to="/photos">
-            <button className="ui inverted button">
+            <button className="ui inverted massive button">
               Check them out here<i className="right chevron icon"></i>
             </button>
           </Link>
-          <p>
+          <h3>
             All proceeds go towards funding events and trips for students at
             Mount Pleasant Middle School
-          </p>
+          </h3>
         </div>
       </div>
       <h4 className="ui horizontal divider header">

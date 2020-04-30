@@ -1,27 +1,29 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { fetchOrders } from "../../actions";
 import OrderTable from "./OrderTable";
 
-class OrderList extends Component {
-  componentDidMount() {
-    this.props.fetchOrders();
-  }
+const OrderList = () => {
+  const [isLoading, setIsLoading] = useState(true);
+  const dispatch = useDispatch();
+  const orders = useSelector((state) => Object.values(state.orders));
 
-  render() {
-    return (
-      <div>
-        <OrderTable arr={this.props.orders} title="Orders" />
-      </div>
-    );
-  }
-}
+  useEffect(() => {
+    const fetchData = async () => {
+      dispatch(fetchOrders());
+    };
+    fetchData();
+    setIsLoading(false);
+  }, [dispatch]);
 
-function mapStateToProps(state) {
-  return { orders: Object.values(state.orders) };
-}
+  return (
+    <div>
+      <OrderTable arr={orders} title="Orders" isLoading={isLoading} />
+    </div>
+  );
+};
 
-export default connect(mapStateToProps, { fetchOrders })(OrderList);
+export default OrderList;
 
 /* import React, { Component } from "react";
 import { connect } from "react-redux";
